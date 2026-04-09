@@ -25,11 +25,13 @@ if (!fs.existsSync(uploadDir)) {
 
 // PostgreSQL Connection
 const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
   user: process.env.DB_USER || 'postgres',
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'ics_db',
   password: process.env.DB_PASSWORD || 'root',
   port: process.env.DB_PORT || 5433,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
 // Auto-initialize Audit & Notification Tables

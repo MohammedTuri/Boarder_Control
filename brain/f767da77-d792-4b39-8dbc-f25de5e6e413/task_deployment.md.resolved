@@ -1,0 +1,5 @@
+- [ ] Prepare Backend for Cloud (Add SSL support to DB connection)
+- [ ] Add `vercel.json` for Frontend routing
+- [ ] Create GitHub CI/CD workflow
+- [ ] Commit and Push changes to GitHub
+- [ ] Provide instructions for Vercel/Render Dashboard setup

@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Comprehensive deployment plan for the ICS Border Control System, covering frontend hosting, backend/database deployment, and CI/CD automation via GitHub Actions.",
+  "updatedAt": "2026-04-09T13:43:18.527685100Z",
+  "requestFeedback": true
+}
