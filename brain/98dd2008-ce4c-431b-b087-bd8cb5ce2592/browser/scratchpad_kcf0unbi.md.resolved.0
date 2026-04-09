@@ -1,0 +1,6 @@
+# Mission Reporting Hub Verification Plan
+- [ ] Navigate to http://localhost:5173/admin/history (Already there)
+- [ ] Click 'Daily Crossing Audit' and verify the table appears.
+- [ ] Click 'Visa Statistics' and verify it does NOT crash (no blank screen).
+- [ ] Take a screenshot of the 'Visa Statistics' report.
+- [ ] Confirm no errors in the console.

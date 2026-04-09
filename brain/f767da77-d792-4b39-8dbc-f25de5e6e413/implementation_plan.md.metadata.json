@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Fixes the \"git is not recognized\" issue by adding the Portable Git path to the system PATH environment variable.",
+  "updatedAt": "2026-04-09T12:27:49.594591400Z",
+  "requestFeedback": true
+}

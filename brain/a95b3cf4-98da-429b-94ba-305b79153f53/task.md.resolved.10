@@ -1,0 +1,4 @@
+- [x] Update `App.jsx` to allow Supervisor in Settings route
+- [x] Update `Watchlist.jsx` to show Add/Delete for Supervisor
+- [x] Verify as Supervisor (`SUP-142`)
+- [x] Verify as Officer (`AGT-882`) - still restricted

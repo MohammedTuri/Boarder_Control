@@ -1,0 +1,39 @@
+# Correct Supervisor Role Permissions
+
+This plan corrects an oversight where the **Supervisor** role was functionally restricted to the same level as a standard **Officer** for sensitive operations. We will elevate the Supervisor's permissions to allow them to manage operational security (Watchlist) and access their own account settings.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Supervisors** will gain full Add/Delete authority for the National Watchlist.
+> **Supervisors** will now be able to access the "Settings" page to manage their own passcodes.
+> **Personnel Management** will remain strictly restricted to **Administrators**.
+
+## Proposed Changes
+
+### [Frontend] Route Protection
+
+#### [MODIFY] [App.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/App.jsx)
+- Update the `settings` route to allow both `['Administrator', 'Supervisor']`.
+
+### [Frontend] Operational Data Access
+
+#### [MODIFY] [Watchlist.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Watchlist.jsx)
+- Update the "Add Subject" button visibility to include `Supervisor`.
+- Update the "Delete" action visibility in the table to include `Supervisor`.
+
+## Open Questions
+
+- Should Supervisors also be allowed to "Flag" entries in the main Processing module? (Currently open to all roles, results in 'Flagged' based on DB check).
+- Is there any specific "Setting" that should remain Admin-only within the Settings page, or is passcode update sufficient for everyone?
+
+## Verification Plan
+
+### Automated Tests
+- Browser subagent will log in as `SUP-142` (Supervisor) and verify that the "Watchlist" add button is visible and functional.
+- Browser subagent will verify that clicking "Settings" no longer redirects to the dashboard for the Supervisor.
+- Browser subagent will verify that the "Personnel" menu remains hidden for the Supervisor.
+
+### Manual Verification
+- Visual check of the Sidebar menu items for the Supervisor role.
+- Verify that a standard Officer (`AGT-882`) still cannot see the Add/Delete buttons in the Watchlist.

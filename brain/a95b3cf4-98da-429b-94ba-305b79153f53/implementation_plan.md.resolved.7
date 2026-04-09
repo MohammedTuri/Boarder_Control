@@ -1,0 +1,36 @@
+# Implementation Plan: Command Configuration Hub
+
+Transform the placeholder Settings page into a functional control center for the Border Control station's operational preferences and identity.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The settings proposed here will be stored in `localStorage` for this browser session. In a full production environment, these would be synced to a backend `station_config` table. 
+
+## Proposed Changes
+
+### 🔧 [NEW] [SettingsContext](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/context/SettingsContext.jsx)
+Implement a new React Context to manage global operational settings across the entire dashboard.
+- **State**: `stationName`, `alertLevel`, `refreshInterval`, `enableNotifications`.
+- **Persistence**: Auto-save and load from `localStorage`.
+
+### 🎛️ [MODIFY] [Settings.jsx](file:///c:/Users/Mohammed/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Settings.jsx)
+Overhaul the UI to include:
+- **Station Identity**: A text input to set the current Port of Entry name.
+- **Operational Status**: A selector for the "Security Alert Level" (Normal, Elevated, High, Critical).
+- **Communication Toggles**: Switches for the real-time alert dropdown and system sounds.
+
+### 🏠 [MODIFY] [Dashboard.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Dashboard.jsx)
+- **Header Integration**: Display the "Current Station" name next to the "Command Overview" title.
+- **Alert Level**: (Optional) Add a visual overlay or banner if the Alert Level is set to 'Critical'.
+
+### 🔔 [MODIFY] [Header.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Header.jsx)
+- **Notification Respect**: Conditionally show the security alert bell based on the `enableNotifications` setting.
+
+## Verification Plan
+
+### Manual Verification
+- Change the **Station Name** and verify it updates on the Dashboard.
+- Change the **Alert Level** and observe visual changes (e.g., status pill color).
+- Toggle **Notifications** and verify the bell disappears/reappears.
+- Refresh the page to ensure all settings persist in `localStorage`.

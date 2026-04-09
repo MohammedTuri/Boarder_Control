@@ -1,0 +1,8 @@
+# Ethiopian Border Control Web Prototype
+
+## Tasks
+- [x] Analyze the [server.js](file:///C:/Users/Mohammed/.gemini/antigravity/scratch/ics-production/backend/server.js) and [schema.sql](file:///C:/Users/Mohammed/.gemini/antigravity/scratch/ics-production/backend/schema.sql) files for PostgreSQL migrations.
+- [/] Verify the connection to the PostgreSQL database.
+- [ ] Fix connection issues.
+- [ ] Start the backend server on port 4000.
+- [ ] Start the frontend React app.

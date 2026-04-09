@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to implement a forensic Risk Assessment Engine and unified Traveler Profile views. This will aggregate visa history, crossing frequency, and watchlist status into a single, intuitive Risk Score to aid border agents and supervisors in real-time decision making.",
+  "updatedAt":  "2026-04-02T12:49:45.819976300Z",
+  "requestFeedback":  true
+}

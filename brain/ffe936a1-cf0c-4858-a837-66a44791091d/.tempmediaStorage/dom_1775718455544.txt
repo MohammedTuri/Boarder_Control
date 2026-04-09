@@ -1,0 +1,59 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (500,500)<div  />
+	[1] (141,245)<a class='nav-item active' href='/admin' />
+		[2] (118,245)<span >Dashboard />
+	[3] (141,329)<a class='nav-item' href='/admin/processing' />
+		[4] (119,329)<span >Processing />
+	[5] (141,412)<a class='nav-item' href='/admin/applications' />
+		[6] (141,412)<span >Visa Applications />
+		[7] (228,412)<span >1 />
+	[8] (141,496)<a class='nav-item' href='/admin/search' />
+		[9] (141,496)<span >Database Search />
+	[10] (141,594)<button class='nav-item nav-dropdown-toggle ' />
+		[11] (143,594)<span >Operational Reports />
+	[12] (141,692)<a class='nav-item' href='/admin/watchlist' />
+		[13] (112,692)<span >Watchlist />
+	[14] (141,776)<a class='nav-item' href='/admin/users' />
+		[15] (115,776)<span >Personnel />
+	[16] (141,859)<a class='nav-item' href='/admin/audit' />
+		[17] (115,859)<span >Audit Trail />
+	[18] (141,957)<a class='nav-item' href='/admin/settings' />
+		[19] (108,957)<span >Settings />
+	SYSTEM SECURE
+	2026-04-09 07:07:35 UTC
+	[20] (733,82)<button class='icon-btn has-alerts' />
+		[21] (743,66)<span  />
+	[22] (838,82)<a class='user-profile' href='/admin/profile' />
+		[23] (783,82)<div  />
+		[24] (861,82)<div  />
+			[25] (861,71)<span >Almaz Tadesse />
+			[26] (861,95)<span >Administrator />
+	[27] (943,82)<button class='icon-btn logout-btn' title='Sign Out' />
+	[28] (633,569)<main class='page-content' scrollable='true' />
+		Command Overview
+		Active Deployment:
+		Addis Ababa Station H
+		MISSION SEC-LEVEL
+		BRAVO
+		LIVE DATABASE CONNECTED
+		Uptime: 142h 12m
+		Total Processed
+		+12.5%
+		vs last 24h
+		Today's Entries
+		+8.2%
+		vs last 24h
+		Mission Dispatches
+		Automated
+		vs last 24h
+		Pending Visas
+		0 awaiting
+		vs last 24h
+		Derogatory Matches
+		-2.4%
+		vs last 24h
+
+</current_dom>

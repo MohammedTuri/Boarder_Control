@@ -1,0 +1,53 @@
+[0] (500,500)<div  />
+	ICS CMD
+	[1] (114,204)<a class='nav-item active' href='/admin' />
+		[2] (96,204)<span >Dashboard />
+	[3] (114,284)<a class='nav-item' href='/admin/processing' />
+		[4] (96,284)<span >Processing />
+	[5] (114,364)<a class='nav-item' href='/admin/search' />
+		[6] (114,364)<span >Database Search />
+	[7] (114,444)<a class='nav-item' href='/admin/history' />
+		[8] (86,444)<span >Reports />
+	[9] (114,524)<a class='nav-item' href='/admin/watchlist' />
+		[10] (91,524)<span >Watchlist />
+	[11] (114,605)<a class='nav-item' href='/admin/users' />
+		[12] (93,605)<span >Personnel />
+	[13] (114,685)<a class='nav-item' href='/admin/audit' />
+		[14] (93,685)<span >Audit Trail />
+	[15] (114,905)<a class='nav-item' href='/admin/settings' />
+		[16] (88,905)<span >Settings />
+	SYSTEM SECURE
+	2026-04-02 08:20:48 UTC
+	[17] (784,78)<button class='icon-btn ' />
+	[18] (869,78)<div  />
+		[19] (825,78)<div  />
+		[20] (888,78)<div  />
+			[21] (888,68)<span >Almaz Tadesse />
+			[22] (888,91)<span >Administrator />
+	[23] (954,78)<button class='icon-btn logout-btn' title='Sign Out' />
+	[24] (608,566)<main class='page-content' scrollable='true' />
+		Command Overview
+		LIVE DATABASE CONNECTED
+		Total Processed
+		1
+		+12.5%
+		vs last 24h
+		Today's Entries
+		1
+		+8.2%
+		vs last 24h
+		Derogatory Matches
+		0
+		-2.4%
+		vs last 24h
+		Crossing Volume (Last 12h)
+		[25] (463,918)<div  />
+			6:00
+			crossings
+			:
+			0
+		Recent Primary Events
+		Ahmed Ousmane
+		ENTRY
+		P8812932X
+		09:23 AM

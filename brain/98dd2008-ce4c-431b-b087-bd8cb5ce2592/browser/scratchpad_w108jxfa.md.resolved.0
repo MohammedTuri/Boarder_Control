@@ -1,0 +1,17 @@
+# Task: Verify Traveler Processing and Dashboard Activity
+
+## Checklist
+- [ ] Navigate to http://localhost:5173/admin/processing
+- [ ] Verify 'Traveler Type' and 'Point of Entry / Station' dropdowns exist
+- [ ] Fill the form with test data:
+    - Passport: TEST12345
+    - Nationality: ETH
+    - Full Name: ADANECH ABEBE
+    - Date of Birth: 1990-01-01
+    - Expiry: 2030-01-01
+    - Traveler Type: Exit (Departure)
+    - Point of Entry: Moyale (Kenyan Border)
+- [ ] Click 'Process Traveler' and wait for result
+- [ ] Navigate to http://localhost:5173/admin/dashboard
+- [ ] Verify the recent activity/mission feed shows the crossing at 'Moyale'
+- [ ] Final status report

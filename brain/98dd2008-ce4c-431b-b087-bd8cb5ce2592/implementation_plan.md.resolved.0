@@ -1,0 +1,70 @@
+# Visa Application Command Module & System Hardening
+
+Complete the critical operational loop by adding an **Application Review & Management Module** to the admin command center. Currently, travelers can submit applications via the public portal, but administrators have no way to review, approve, or reject them. This is the most important missing feature.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This adds a new **"Visa Applications"** module to the admin sidebar, accessible by Administrators and Supervisors. Applications submitted from the public portal will appear here for review with Approve/Reject/Hold actions. Each status change is audit-logged.
+
+> [!WARNING]
+> The public **Track Status** page will now show real-time status updates (Approved/Rejected/Under Review) instead of just "Pending".
+
+## Proposed Changes
+
+### 🔌 Backend: Application Management API
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- **`PATCH /api/applications/:id/status`** — New endpoint for Admins/Supervisors to update application status (Approve, Reject, Hold)
+- **`GET /api/applications/:id`** — New endpoint to fetch a single application's full details
+- **`GET /api/stats`** — Enhanced to include pending applications count
+- All status changes are **audit-logged** with agent ID, action, and reason
+
+---
+
+### 🖥️ Frontend: Application Command Module
+
+#### [NEW] [ApplicationReview.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/ApplicationReview.jsx)
+Full-featured application management page with:
+- **Summary Cards**: Total applications, Pending review, Approved, Rejected counts
+- **Filterable Table**: Search by passport, name, nationality, status, date range
+- **Detail Drawer**: Click any application to see full details in a slide-out panel
+- **Action Buttons**: Approve / Reject / Place on Hold with confirmation dialogs
+- **Status Badges**: Color-coded (Pending=amber, Approved=emerald, Rejected=red, Hold=blue)
+- Glassmorphism dark-mode aesthetic consistent with existing modules
+
+#### [NEW] [ApplicationReview.css](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/ApplicationReview.css)
+Dedicated styles for the review module including the detail drawer animation and action buttons.
+
+---
+
+### 🧭 Navigation & Routing
+
+#### [MODIFY] [App.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/App.jsx)
+- Add route `/admin/applications` → `ApplicationReview` (protected: Administrator, Supervisor)
+
+#### [MODIFY] [Sidebar.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Sidebar.jsx)
+- Add "Visa Applications" nav item with `ClipboardList` icon (between Processing and Database Search)
+- Show pending count badge on the sidebar item
+
+---
+
+### 📊 Dashboard Enhancement
+
+#### [MODIFY] [Dashboard.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Dashboard.jsx)
+- Add a 4th stat card: **"Pending Applications"** showing count of unprocessed visa requests
+- Add a "Recent Applications" feed section below the charts
+
+## Verification Plan
+
+### Automated Tests
+1. Start backend: `node server.js` → confirm `PATCH /api/applications/:id/status` responds correctly
+2. Start frontend: `npm run dev` → navigate to `/admin/applications`
+
+### Manual Verification
+1. Submit an application via the public `/apply` page
+2. Log into admin → Navigate to "Visa Applications"
+3. Verify the application appears in the pending queue
+4. Click to open the detail drawer → Approve/Reject
+5. Check the public `/status` page to confirm the status update is reflected
+6. Verify the action is logged in the Forensic Audit Trail

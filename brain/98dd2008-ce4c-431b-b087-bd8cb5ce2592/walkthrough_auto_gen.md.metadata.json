@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Walkthrough of the Automated Report Generation enhancement for the Reporting Hub. This update removes the manual 'Generate Report' step for initial views, serving intelligence counts and crossing audits immediately upon selection with today's date as the default.",
+  "updatedAt":  "2026-04-02T13:10:13.870075400Z"
+}

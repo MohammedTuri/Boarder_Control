@@ -1,0 +1,7 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Migration and Deployment plan for the ICS Border Control System. Includes local migration to Drive D: and a roadmap for online production deployment.",
+  "updatedAt": "2026-04-09T08:51:50.201010200Z",
+  "version": "2",
+  "requestFeedback": true
+}

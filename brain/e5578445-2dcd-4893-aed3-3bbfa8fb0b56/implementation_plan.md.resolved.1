@@ -1,0 +1,60 @@
+# Role-Based Context & User Management Module
+
+This plan outlines the architecture required to integrate the requested multi-tier system authentication logic, distributing access permissions between Administrators, Supervisors, and Officers based on granular privilege designations.
+
+## User Review Required
+
+> [!IMPORTANT]
+> Because Role-Based Access Control (RBAC) fundamentally changes how the user accesses the interface, please review the proposed UI restrictions for each role below and confirm if you agree with this permission structure.
+
+## Proposed Changes
+
+---
+
+### Backend Integration (`ics-backend`)
+
+#### [MODIFY] `schema.sql`
+- Introduce a secure `users` table mapping `agent_id`, `password_hash`, `full_name`, `role`, and `border_assignment`.
+- Document an initial seeding script placing 3 mock accounts spanning your requested roles (Administrator, Supervisor, Officer).
+
+### Frontend Routing & State Context (`ics-frontend`)
+
+#### [NEW] `src/context/AuthContext.jsx`
+- Replace primitive unauthenticated routes with a globally mapped Auth Provider. The application needs to securely persist "Who is logged in" globally to toggle layout visibility dynamically.
+
+#### [MODIFY] `src/App.jsx`
+- Wrap routes in the new secure `AuthContext` to distribute `currentRole` permissions downstream immediately.
+
+#### [MODIFY] `src/pages/Login.jsx`
+- Overhaul the hardcoded mock login form so entering a specific mock `agent_id` returns a dedicated object establishing the user's explicit role (i.e. logging in as `ADMIN-001` vs `OFC-112`).
+
+---
+
+### UI Visibility Logic (RBAC Implementation)
+
+#### [MODIFY] `src/components/Sidebar.jsx`
+- Render navigation destinations dynamically based strictly on the global auth role flag.
+- **Administrator**: Unrestricted global access. Plus, gains a brand new "User Access Management" route visible solely to them.
+- **Supervisor**: Cannot see the top-level "User Access Management". Has complete authorization over localized Processing and Reporting scopes for their individual border designation.
+- **Officer**: Stripped-down "Field Operational" view. Cannot see "Settings," "User Management", or globalized "Reports". Locked primarily into evaluating entries via the `Processing` interface.
+
+### New Module Setup
+
+#### [NEW] `src/pages/Users.jsx`
+- Engineer an Administrator-exclusive portal listing all active system users under an interactive table structure. Include a visual "Add New Personnel" form component outlining `Name`, `Role Type`, and `Border Station` designations.
+
+## Open Questions
+
+> [!WARNING]
+> Please confirm the specific mock login credentials you'd like me to build. Alternatively, I will create placeholders like `ADMIN`, `SUPERVISOR`, and `OFFICER` for testing.
+
+## Verification Plan
+
+### Automated Tests
+- Validate conditional JSX rendering trees prevent Officers from traversing secure route DOMs.
+
+### Manual Verification
+1. I will log out of the active developer mock session.
+2. Visit the `/login` gateway.
+3. Provide the `OFFICER` localized credentials and verify the "Reports" and "Settings" tabs are physically missing from the Sidebar.
+4. Hot-swap the session into `ADMIN` mode and analyze the deployment of the new "User Access Control" portal.

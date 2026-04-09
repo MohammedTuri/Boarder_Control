@@ -1,0 +1,11 @@
+# Tasks
+- [ ] Log in to http://localhost:5173/login
+- [ ] Verify Dashboard loads
+- [ ] Verify MISSION SEC-LEVEL
+- [ ] Verify Hardware Telemetry
+- [ ] Screenshot Dashboard
+- [ ] Go to Applications page
+- [ ] Open application detail drawer
+- [ ] Verify Forensic Risk Rating and evidence items
+- [ ] Screenshot application detail drawer
+- [ ] Final report

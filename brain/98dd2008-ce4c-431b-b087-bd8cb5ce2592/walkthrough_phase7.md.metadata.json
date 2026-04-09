@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Phase 7 Walkthrough of the Mission Integrity & Situational Awareness integration. This update transforms the Command Dashboard into a real-time operational hub by aggregating biometric, adjudication, and forensic events into a single chronological timeline with 30s auto-polling.",
+  "updatedAt":  "2026-04-02T13:36:48.002061Z"
+}

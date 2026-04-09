@@ -1,0 +1,111 @@
+/* Global Public Overrides - Official Government Gateway Style */
+.public-app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+}
+
+.public-header {
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.public-nav-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.public-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+}
+
+.public-nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.public-nav-links a {
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.public-nav-links a:hover, .public-nav-links a.active {
+  color: var(--ics-blue);
+}
+
+.public-nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -32px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ics-yellow);
+}
+
+.public-actions { display: flex; gap: 16px; align-items: center; }
+
+.public-footer {
+  background: var(--ics-dark-blue);
+  color: #f1f5f9;
+  border-top: 4px solid var(--ics-yellow);
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 60px;
+}
+
+.f-col h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 24px; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+.f-col p { color: #94a3b8; line-height: 1.8; font-size: 0.95rem; }
+.f-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.f-col a { color: #94a3b8; text-decoration: none; transition: all 0.2s; font-size: 0.95rem; }
+.f-col a:hover { color: var(--ics-yellow); transform: translateX(4px); display: inline-block; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 30px 40px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 0.85rem;
+  color: #cdd5e0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .public-nav-links { display: none; }
+  .footer-content { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .footer-content { grid-template-columns: 1fr; }
+}

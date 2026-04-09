@@ -1,0 +1,31 @@
+# Walkthrough: Phase 8 Integrated (Traveler Movement Context)
+
+Phase 8 is now fully operational, bringing on-demand station-level visibility to the ICS Border Control System. We've enhanced both the analytical depth and situational awareness of the platform.
+
+## Key Accomplishments
+
+### 📊 Tactical Command Dashboard
+- **24-Hour Situational Awareness**: Re-calibrated the main crossing volume chart to a rolling 24-hour window for comprehensive oversight.
+- **Operational Distribution**: Added a new **Station Activity** chart (Last 24h) to identify the busiest border ports at a glance.
+- **Integrity Metrics**: Integrated real-time performance telemetry including biometric verification rates and processing speeds.
+
+### 🕵️ Forensic Intelligence & Profiling
+- **Primary Port Identification**: The Traveler Profile now automatically calculates and highlights the **Primary Port** (most frequent crossing point) for every individual.
+- **Mobility Anomaly Detection**: The Risk Assessment engine now flags "Anomalous Mobility" if a traveler crosses through more than 3 distinct border stations, aiding in the detection of irregular movement patterns.
+
+### 📑 Industrial Reporting Hub
+- **Station Audit**: The Crossing Audit report now features a multi-dimensional "Intelligence" view, showcasing station distribution alongside historical volume trends.
+- **Flexible Data Entry**: Maintained industrial flexibility by allowing free-text "Point of Entry" while providing a curated dropdown for common stations.
+
+## Database & Schema Upgrades
+- **Schema Hardening**: Updated the `nationality` constraints to support international standards (increased to 50 characters).
+- **Data Fidelity**: Re-seeded the national database with diverse movement records across *Addis Ababa (Bole)*, *Moyale*, *Togochale*, and *Galafi* to populate the new dashboards.
+
+## Verification Success
+- [x] **Schema Migration**: Success (Phase 8 column added, nationality lengthened).
+- [x] **Data Seeding**: Success (8 diverse crossing records across multiple stations).
+- [x] **API Integrity**: Success (Station stats correctly aggregated in `/api/reports/stats`).
+- [x] **UI Rendering**: Success (All new charts and indicators visible).
+
+> [!TIP]
+> Navigating to **Mission Reporting Hub** -> **Daily Crossing Audit** -> **Intelligence** will now display the national station distribution for any selected time period.

@@ -1,0 +1,41 @@
+# Ethiopian Land Border Control System - Implementation Walkthrough
+
+The development of the high-fidelity Ethiopian Land Border Control Dashboard is now complete! We have successfully transitioned the project into a premium-grade modern React web application, alongside an Express proxy backed by PostgreSQL.
+
+## Overview of Changes
+
+1. **Vite React Frontend (`ics-frontend`)**
+   - Engineered the visual structural foundation to deliver a robust **Dark Mode Glassmorphism** design system, heavily mimicking a highly secure government command center.
+   - Built an application `Layout` consisting of a persistent `Sidebar` mapping our route hierarchy, and an atmospheric `Header` including an active simulation UTC clock.
+   - Setup a `Dashboard` with live crossing visualization via an integrated `recharts` area chart.
+   - Designed a high-security `Processing` view capable of accepting complex MRZ forms arrays along with interactive Drag-and-Drop photo logic. It features an integrated mock Interpol/Watchlist intercept detector.
+   - Added a `History` view to log and categorize successfully processed travelers chronologically using specific data badging.
+
+2. **Express Backend (`ics-backend`)**
+   - Engineered an Express API capable of interfacing seamlessly with your PostgreSQL database pool instance payload endpoints.
+   - Integrated `multer` to seamlessly handle `multipart/form-data` logic, guaranteeing the successful extraction of locally stored traveler assets.
+   - Rendered a scalable data structure (`schema.sql`) outlining secure and persistent configurations.
+
+## System Activation Guide
+
+> [!NOTE]
+> To launch the application locally, perform the following routines across your development terminals.
+
+### 1. Boot up the PostgreSQL Backend API
+Ensure your local PostgreSQL instance is running on `localhost:5432`. Execute the initialization queries provided in `schema.sql` to apply the tables, then:
+
+```bash
+cd c:\Users\Mohammed\.gemini\antigravity\ics-backend
+npm install
+npm start
+```
+
+### 2. Start the Frontend Application Console
+```bash
+cd c:\Users\Mohammed\.gemini\antigravity\ics-frontend
+npm install
+npm run dev
+```
+
+> [!TIP]
+> The design interface dynamically recalibrates for smaller and larger breakpoints implicitly. For an optimum Command Center presentation layout, scale the application horizontally on a landscape monitor.

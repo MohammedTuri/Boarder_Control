@@ -1,0 +1,48 @@
+# Phase 10: Logistics & Hardware Interfacing Simulation
+
+Transform the Processing Center from a standard web form into a high-fidelity **Command Console** that simulates real-time interfacing with physical border hardware (Document Readers, Biometric Scanners, and System Telemetry).
+
+## User Review Required
+
+> [!IMPORTANT]
+> This phase introduces "Hardware Dependency". If the simulated hardware status reports a failure, the officer will be unable to process travelers until a "Calibration" action is performed.
+
+## Proposed Changes
+
+### [Backend] Hardware Telemetry Simulation
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Add `GET /api/hardware/status`: Returns simulated health for `doc_reader`, `bio_camera`, and `sys_link`.
+- Add `GET /api/hardware/mrz-scan`: Returns a random high-fidelity traveler profile (name, passport, dob) to simulate a physical passport scan.
+- Add `POST /api/hardware/calibrate`: Logs a technician event and "repairs" the simulated hardware.
+
+---
+
+### [Frontend] Augmented Command Interface
+
+#### [MODIFY] [Processing.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Processing.jsx)
+- **Status Dashboard**: Add a header row showing real-time hardware heartbeat icons.
+- **MRZ Ingestion**: Add a "Quick Scan Passport" button that triggers the `/api/hardware/mrz-scan` endpoint and auto-populates the form with a simulated typing effect.
+- **Logistics Feed**: Add a vertical scrolling "System Log" in the sidebar showing background technical events.
+- **Operational Lock**: Disable the "Process Traveler" button if the `doc_reader` status is `Offline`.
+
+#### [MODIFY] [Processing.css](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Processing.css) (or add inline)
+- Add "Matrix-style" scrolling animation for the logistics feed.
+- Add glow effects for "Online" hardware indicators.
+
+## Open Questions
+
+- Should the "Hardware Failure" be random (e.g., 5% chance on page load) or purely triggered via the UI for demonstration?
+- Do we want to simulate "Thermal Printing" of the visa receipt after a successful clearance?
+
+## Verification Plan
+
+### Automated Tests
+- Verify `/api/hardware/status` returns valid JSON.
+- Verify `/api/hardware/mrz-scan` returns one of the 5 mock test profiles.
+
+### Manual Verification
+- Navigate to Processing.
+- Click "Quick Scan Passport" and verify the form fills automatically.
+- Check the "Logistics Feed" for simulated heartbeat messages.
+- Simulate a hardware failure and verify the "Process" button locks correctly.

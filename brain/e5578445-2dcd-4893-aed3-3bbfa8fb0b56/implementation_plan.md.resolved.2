@@ -1,0 +1,66 @@
+# Real-World System Upgrade: Roles, Backend API, & Traveler Profiles
+
+This implementation plan outlines the architectural steps necessary to upgrade the prototype into a fully functioning, real-world border control application. 
+
+This brings in three major pillars: **Role-Based Access Control (RBAC)**, **Live Backend Data Integration**, and a dedicated **Traveler Profile & Search** module.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This upgrade will transition the application from using static "mock" data to actually talking to your Node.js/PostgreSQL backend located at `ics-backend`. Please review the scope below and approve the plan to begin execution.
+
+## Proposed Changes
+
+---
+
+### 1. Real-World API Integration
+To behave like a production system, the frontend must stop using hardcoded data and start dispatching network requests to your database.
+
+#### [MODIFY] `src/config/api.js` (NEW FILE)
+- Create a central Axios/Fetch utility pointing to `http://localhost:5000/api` to streamline network calls and handle authentication headers.
+
+#### [MODIFY] `ics-backend/server.js`
+- Expand the Express backend to include robust API routes:
+  - `POST /api/auth/login` - Validate credentials and return a session token + role.
+  - `GET/POST /api/users` - Admin endpoints to manage staff accounts.
+  - `GET /api/travelers/:passport` - Retrieve a specific traveler's chronological entry/exit footprint.
+
+---
+
+### 2. Role-Based Access Control (RBAC)
+We will introduce strict permission boundaries across the application using an `AuthContext`.
+
+- **Administrator Accounts:** Full system override. Unrestricted access to Dashboard statistics, Global Reports, and exclusive access to a new **User Management** portal to provision or revoke staff credentials.
+- **Supervisor Accounts:** Management access scoped to a specific border point. Can view Dashboards, aggregate local Reports, and Process travelers, but cannot manage users.
+- **Officer Accounts:** Strictly field-level access. Locked into the `Processing` scanner and the `Traveler History` lookup tools. Cannot view Settings, high-level Reports, or overall Dashboards.
+
+#### [NEW] `src/context/AuthContext.jsx`
+- Maintain the active user session persistently.
+
+#### [NEW] `src/pages/UserManagement.jsx`
+- Build a secure internal dashboard (accessible only to Administrators) rendering a directory of active staff, their designated roles, and an interface to securely onboard new agents.
+
+---
+
+### 3. Traveler History & Profile Lookup
+To execute proper border security, agents require the ability to audit an individual's historical footprint.
+
+#### [NEW] `src/pages/TravelerSearch.jsx`
+- Design a high-security search gateway where Agents input a Document Number (MRZ) or Passport.
+
+#### [NEW] `src/pages/TravelerProfile.jsx`
+- Build a dedicated visual dossier page displaying a scanned traveler's identity card.
+- Incorporate a chronological timeline component rendering every known border crossing (Exit/Entry), timestamps, associated Agent IDs, and historical Watchlist flags tied to that specific passport.
+
+## Open Questions
+
+> [!TIP]
+> Do you have a preference for how we handle mock database seeding for testing these features? 
+> I can construct a `seed.js` script in the backend to automatically populate your PostgreSQL database with dummy Travelers, Crossings, and User Accounts so you have immediate live data to interact with.
+
+## Verification Plan
+
+### Manual Verification
+1. Boot both the React server and the Node backend.
+2. Authenticate as an `OFFICER` and ensure the interface locks down properly. Use the new **Traveler Search** module to query a passport and retrieve their live timeline payload from the Postgres database.
+3. Authenticate as an `ADMINISTRATOR` to unlock the global **User Management** system and successfully provision a mock Supervisor.

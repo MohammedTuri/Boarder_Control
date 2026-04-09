@@ -1,0 +1,26 @@
+[0] (500,801)<div  />
+	[1] (153,60)<a class='public-brand' href='/' />
+		[2] (170,60)<div  />
+			[3] (170,46)<h1 >EICS Portal />
+			[4] (170,80)<span >Ethiopian Immigration Service />
+	[5] (328,60)<a href='/'>Home />
+	[6] (396,60)<a href='/about'>About Us />
+	[7] (474,60)<a href='/information'>Entry Info />
+	[8] (549,60)<a href='/contact'>Contact />
+	[9] (632,60)<a href='/status'>Track Status />
+	[10] (781,60)<a class='public-btn primary' href='/apply'>Apply for e-Visa />
+	[11] (901,60)<a class='public-btn outline' href='/login'>Agent Portal />
+	New Application
+	Complete your pre-approval request quickly and securely to facilitate entry into Ethiopia.
+	1. Personal Info
+	2. Travel Details
+	3. Documents
+	[12] (355,602)<label >First Name />
+	[13] (355,662)<input class='form-control' placeholder='Given Name' />
+	[14] (645,602)<label >Last Name />
+	[15] (645,662)<input class='form-control' placeholder='Surname' />
+	[16] (355,746)<label >Date of Birth />
+	[17] (355,808)<input class='form-control' />
+	[18] (645,746)<label >Nationality />
+	[19] (645,808)<select class='form-control' />
+	[20] (708,966)<button class='public-btn primary'>Continue to Next Step />

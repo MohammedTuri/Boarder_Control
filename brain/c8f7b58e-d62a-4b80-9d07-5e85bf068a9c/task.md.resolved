@@ -1,0 +1,21 @@
+# ICS Land Border Control Prototype Tasks
+
+- [ ] Project Initialization
+  - [ ] Create Vite React project at `c:\Users\Mohammed\.gemini\ics-frontend`
+  - [ ] Install dependencies (`react-router-dom`, `lucide-react`, `recharts`)
+  - [ ] Clean up default Vite boilerplate
+- [ ] Core UI Layout & Theming
+  - [ ] Update `index.css` for Dark Mode Glassmorphism
+  - [ ] Build global layout and navigation (`Layout.jsx`, `Sidebar.jsx`, `Header.jsx`)
+  - [ ] Add UTC System Clock to Header
+- [ ] Dashboard Implementation
+  - [ ] Build top-level statistics cards
+  - [ ] Build Recharts area chart for crossing volume
+  - [ ] Build Recent Crossings table
+- [ ] Traveler Processing & Watchlist
+  - [ ] Build `Processing.jsx` with photo dropzone and MRZ form
+  - [ ] Implement local validation and mock watchlist intercept logic
+  - [ ] Build `History.jsx` with chronological table and photo thumbnails
+- [ ] Polish and Final Review
+  - [ ] Ensure premium aesthetic and responsive design
+  - [ ] Final manual testing

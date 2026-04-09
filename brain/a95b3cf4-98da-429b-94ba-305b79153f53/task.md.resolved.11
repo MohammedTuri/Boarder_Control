@@ -1,0 +1,4 @@
+- [ ] Update `App.jsx` to protect `history` and `watchlist` routes
+- [ ] Update `Sidebar.jsx` to hide `history` and `watchlist` for Officers
+- [ ] Verify Officer Access (Limited View)
+- [ ] Verify Supervisor Access (Full Operational View)

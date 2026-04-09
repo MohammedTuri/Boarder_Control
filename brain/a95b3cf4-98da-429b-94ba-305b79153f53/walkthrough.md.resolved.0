@@ -1,0 +1,47 @@
+# Ethiopia ICS Border Control System - Security & RBAC Walkthrough
+
+We have successfully transitioned the ICS Border Control prototype into a more secure, production-ready system with robust authentication, role-based access control, and full-stack connectivity.
+
+## Key Accomplishments
+
+### 1. Robust Security Architecture
+- **JWT-Based Authentication**: Implemented a secure authentication flow using JSON Web Tokens.
+- **Route Protection**: Created `ProtectedRoute` to shield all `/admin` routes from unauthorized access. Unauthenticated users are now automatically redirected to the login page.
+- **Role-Based Access Control (RBAC)**: Implemented `RoleProtectedRoute` to restrict sensitive modules like **Personnel Management** and **System Settings** to users with the `Administrator` role only.
+
+### 2. Operational Command Center
+- **Real-Time Dashboard**: The Command Overview now fetches live operational metrics from the PostgreSQL database, including:
+    - Total travelers processed.
+    - Today's entry volume.
+    - Active derogatory (watchlist) matches.
+- **Crossing History**: Transformed the static reporting page into a live **Operational History** log that fetches and filters actual traveler crossings from the backend.
+
+### 3. Full-Stack Connectivity
+- **Backend API Enhancement**: Added a new `/api/stats` endpoint to provide live metrics to the command center.
+- **Personnel Management**: Fully connected the frontend to the backend `/api/users` endpoint, allowing for secure listing and registration of new border personnel.
+
+---
+
+## Technical Details
+
+- **Backend**: Node.js/Express with `pg` for PostgreSQL, `bcrypt` for password hashing, and `jsonwebtoken` for secure sessions.
+- **Frontend**: React with `React Router` for secure routing and `AuthContext` for global authentication state management.
+- **Database**: PostgreSQL with a secure schema for users, crossings, and watchlist data.
+
+## Verification Results
+
+| Test Case | Method | Status |
+| :--- | :--- | :--- |
+| Unauthorized /admin Access | Attempt direct navigation to `/admin` | ✅ Access Denied (Redirected) |
+| System Authentication | Login with valid Agent credentials | ✅ Success |
+| Administrative RBAC | Access Personnel Management as Non-Admin | ✅ Access Denied (Redirected) |
+| Live Stats Connectivity | Verify stats match database records | ✅ Success |
+| History Retrieval | Fetch crossing records from history log | ✅ Success |
+
+---
+
+> [!TIP]
+> Use the default administrator account **ADM-001** with passcode **password123** for initial setup and access to all modules.
+
+> [!IMPORTANT]
+> The system is currently running in a development environment. For production deployment, ensure that `JWT_SECRET` and database credentials are moved to secure environment variables.

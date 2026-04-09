@@ -1,0 +1,12 @@
+# Migration & Deployment Checklist
+
+- [/] **Phase 1: Local Migration**
+    - [ ] Run `robocopy` to mirror source code to `D:\ICS-BOARDER`.
+    - [ ] Exclude `node_modules` and metadata/logs.
+- [ ] **Phase 2: Deployment Configuration**
+    - [ ] Create `deploy.md` with Render/Vercel instructions.
+    - [ ] Create `.env.example` templates for backend and frontend.
+    - [ ] Create database export script (`export_db.ps1`).
+- [ ] **Phase 3: Verification**
+    - [ ] Confirm file presence on Drive D:.
+    - [ ] Verify `deploy.md` accessibility.

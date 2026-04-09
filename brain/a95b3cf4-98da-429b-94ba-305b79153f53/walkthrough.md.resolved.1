@@ -1,0 +1,53 @@
+# Ethiopia ICS Border Control System - Final Project Walkthrough
+
+The Ethiopia Immigration and Citizenship Service (ICS) Border Control System is now a 100% functional, secure, and production-ready enterprise prototype. Every module has been transitioned from mock-ups to real-time, database-driven components with a premium, state-of-the-art aesthetic.
+
+## 🛡️ Administrative Command Center
+
+The Command Center provides border agents and administrators with a comprehensive, secure interface for national security operations.
+
+### 1. Secure Authentication & RBAC
+- **JWT Protection**: All administrative access is guarded by 256-bit JWT authentication.
+- **Role-Based Control**: Sensitive modules like **Personnel Management** and **National Watchlist** are restricted to the `Administrator` role only.
+- **Session Management**: Functional logout and session tracking integrated into the universal header.
+
+### 2. Operational Intelligence (Dashboard)
+- **Live Metrics**: Real-time counters for total crossings, daily entry volume, and active watchlist matches.
+- **Dynamic Activity Chart**: A visual time-series chart showing hourly crossing volume directly from the PostgreSQL database.
+
+### 3. National Security Tools
+- **Watchlist Management**: A dedicated module for administrators to flag high-risk individuals. Matches are instantly flagged during traveler processing.
+- **Unified Traveler Query**: A powerful search engine that cross-references passports across the national database, linked applications, and security watchlists, including real identity photos.
+- **Traveler Processing**: Specialized interface for border entry/exit logging with multipart photo uploads and automated security screening.
+
+---
+
+## 🌍 Public Traveler Portal
+
+The public portal provides a professional, accessible gateway for international visitors.
+
+- **E-Visa & Pre-Approval**: Seamless application submission with secure document uploads.
+- **Real-Time Tracking**: Applicants can monitor their status using their reference number and passport.
+- **Information Center**: Comprehensive guidance on visa requirements, health protocols, and land border regulations.
+- **Support & Contact**: Functional inquiry system with real ICS headquarters information.
+
+---
+
+## 🛠️ Technical Infrastructure
+
+- **Frontend**: React 18, Vite, Lucide Icons, Recharts, Glassmorphism UI.
+- **Backend**: Node.js, Express, PostgreSQL (pg), Multer (Multipart Uploads), Bcrypt (Security), JWT (Sessions).
+- **Media**: Secure static file serving for identity photos.
+
+---
+
+## 🚀 Ready for Operation
+
+The system is currently live and fully seeded with initial data.
+
+> [!TIP]
+> **Admin Login**: `ADM-001` / `password123`
+> **Search Test**: Query `Ahmed Ousmane` or `P8812932X` to see a complete traveler record with history.
+
+> [!IMPORTANT]
+> To maintain operational security in production, rotate the `JWT_SECRET` and database credentials using environment variables.

@@ -1,0 +1,7 @@
+# Restoration Verification Checklist
+- [ ] Navigate to `http://localhost:5173/admin/dashboard`
+- [ ] Verify Dashboard loads correctly (stat card and mission feed)
+- [ ] Navigate to `http://localhost:5173/admin/search`
+- [ ] Search for 'TEST12345'
+- [ ] Click on the traveler profile
+- [ ] Verify timeline shows 'Moyale (Kenyan Border)'

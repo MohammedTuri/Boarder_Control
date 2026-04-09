@@ -1,0 +1,7 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Updated plan to include Public Pages (About, Contact, Apply) and fundamentally split the app into a Public Portal vs Secure Admin Dashboard.",
+  "updatedAt":  "2026-04-01T14:41:31.609603400Z",
+  "version":  "3",
+  "requestFeedback":  true
+}

@@ -1,0 +1,17 @@
+# Forensic Industrialization - Task List
+
+- [ ] **Backend: Real-time Integrity & Forensic Logic**
+    - [ ] Implement `/api/stats/integrity` endpoint in `server.js`.
+    - [ ] Enhance `calculateRiskScore` with additional forensic rules.
+- [ ] **Frontend: Mission Control Dashboard**
+    - [ ] Update `Dashboard.jsx` stats to use real-time data from `/api/stats/integrity`.
+    - [ ] Implement "Hardware Telemetry" status component on Dashboard.
+    - [ ] Enhance Mission Feed with Biometric Conflict markers.
+- [ ] **Frontend: Forensic Analysis Sync**
+    - [ ] Update `TravelerProfile.jsx` to display Biometric Integrity and Identity Conflict data.
+- [ ] **Frontend: Mission Reporting Hub**
+    - [ ] Add "Biometric Integrity Audit" report template to `History.jsx`.
+- [ ] **Verification**
+    - [ ] Verify real-time metric updates.
+    - [ ] Test Biometric Conflict workflow.
+    - [ ] Validate "Biometric Integrity Audit" report generation.

@@ -1,0 +1,3 @@
+- [x] Add Portable Git path to User PATH environment variable
+- [x] Verify the change in the environment
+- [x] Inform user to open a new terminal

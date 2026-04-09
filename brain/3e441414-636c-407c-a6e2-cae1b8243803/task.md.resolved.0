@@ -1,0 +1,21 @@
+# ICS Land Border Control Prototype Tasks
+
+- [/] 1. Project Initialization
+  - [/] Create Vite React project
+  - [ ] Install dependencies and start dev server
+  - [ ] Clean up default Vite boilerplate
+- [ ] 2. Core UI Layout & Theming
+  - [ ] Define CSS Custom Properties (Colors, Typography)
+  - [ ] Build global layout (Sidebar, Header, Main content area)
+- [ ] 3. Dashboard Implementation
+  - [ ] Build statistics cards (Entries, Exits, Alerts)
+  - [ ] Build recent crossings table
+- [ ] 4. Traveler Processing Module
+  - [ ] Build MRZ/Passport data entry form
+  - [ ] Implement validation logic
+- [ ] 5. Watchlist & Alerts
+  - [ ] Create mock watchlist database
+  - [ ] Implement intercept/alert logic on form submission
+- [ ] 6. Polish and Final Review
+  - [ ] Ensure premium aesthetic and responsive design
+  - [ ] Final manual testing

@@ -1,0 +1,6 @@
+- [ ] Initialize `dotenv` and create `.env` template
+- [ ] Add `audit_logs` table to database schema
+- [ ] Implement `auditLog` helper and integrate logging in `server.js`
+- [ ] Create `AuditLogs.jsx` administrative module
+- [ ] Register route and sidebar link for Audit Trail
+- [ ] Verify final system security and configuration

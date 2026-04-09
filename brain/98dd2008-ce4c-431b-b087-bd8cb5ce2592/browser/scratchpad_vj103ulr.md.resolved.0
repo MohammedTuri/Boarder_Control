@@ -1,0 +1,9 @@
+# Task: Verify Report Generation Logic
+
+## Checklist
+- [ ] Navigate to http://localhost:5173/admin/history
+- [ ] Click on 'Daily Crossing Audit' template
+- [ ] Verify 'Awaiting Configuration' and NO traveler data displayed
+- [ ] Click 'Generate Report' in the sidebar
+- [ ] Verify traveler data table appears
+- [ ] Return findings

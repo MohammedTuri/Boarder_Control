@@ -1,0 +1,62 @@
+# Secure ICS Admin Command Center & RBAC Integration
+
+This plan outlines the steps to secure the administrative command center of the Ethiopian Immigration and Citizenship Service (ICS) portal, ensuring that only authenticated agents can access sensitive functions and that certain administrative tasks are restricted to authorized roles.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The current implementation allows anyone to navigate to `/admin` without authentication. This will be blocked.
+> Role-Based Access Control (RBAC) will hide the "User Management" and "Settings" pages from standard Agents.
+
+## Proposed Changes
+
+### [Frontend] Security Infrastructure
+
+#### [MODIFY] [App.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/App.jsx)
+- Wrap the entire application routing in `<AuthProvider>`.
+- Implement a `ProtectedRoute` component to handle authentication checks.
+- Implement a `RoleProtectedRoute` component to handle role-based checks (e.g., Administrator only).
+- Apply these protectors to all `/admin` routes.
+
+#### [NEW] [ProtectedRoute.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/ProtectedRoute.jsx)
+- A wrapper component that redirects unauthenticated users to `/login`.
+
+#### [NEW] [RoleProtectedRoute.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/RoleProtectedRoute.jsx)
+- A wrapper component that redirects authenticated users without the required clearance (role) back to the dashboard or an "Access Denied" state.
+
+---
+
+### [Frontend] Admin Pages Connectivity
+
+#### [MODIFY] [UserManagement.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/UserManagement.jsx)
+- Connect the component to use `authFetch` from `AuthContext`.
+- Implement fetching the list of agents from `/api/users`.
+- Implement adding new agents via `/api/users` (POST).
+
+#### [MODIFY] [History.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/History.jsx)
+- Connect to use `authFetch`.
+- Fetch traveler crossings from `/api/crossings`.
+
+---
+
+### [Backend] System Readiness
+
+#### [MODIFY] [seed.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/seed.js)
+- Ensure the database has at least one Administrator and one Agent for testing purposes.
+- Update passwords to be hashed using `bcrypt` to match the login logic.
+
+## Open Questions
+
+- Should we implement a "Remember Me" functionality? (Currently, it uses `localStorage` which persists until manual logout).
+- Do we need a specific "Access Denied" page for RBAC failures, or should we just redirect to the Dashboard?
+
+## Verification Plan
+
+### Automated Tests
+- Browser subagent will attempt to access `/admin` without logging in (expected: redirect to `/login`).
+- Browser subagent will log in as an Agent and attempt to access `/admin/users` (expected: redirect or access denied).
+- Browser subagent will log in as an Administrator and access `/admin/users` (expected: success).
+
+### Manual Verification
+- Verify that traveler processing successfully saves to the database and appears in the history log.
+- Verify that new user creation works and the new user can log in.

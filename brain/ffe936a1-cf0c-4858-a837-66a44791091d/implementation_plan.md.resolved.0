@@ -1,0 +1,55 @@
+# Implementation Plan - Final Industrialization & Forensic Refinement
+
+This plan outlines the final forensic and aesthetic refinements to the ICS Border Control System. The goal is to ensure the system is transition-ready, featuring a high-fidelity public gateway and a hardened administrative command center with real-time intelligence transparency.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The "Security Incident" tracking will now elevate confirmed biometric conflicts to a dedicated supervisor dashboard. This ensures that identity theft or document forgery attempts are not just logged but actively flagged for interdiction.
+
+> [!TIP]
+> We will enhance the "Public Enrollment" process with a simulated "Neural Quality Check" for uploaded photos to simulate advanced biometric capturing standards.
+
+## Proposed Changes
+
+### 1. Administrative Hardening & Forensic Logic
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Enhance `calculateRiskScore` to include:
+  - **Station Proximity**: Flag if the traveler's point of entry is significantly different from their last known crossing within a short timeframe.
+  - **Watchlist Depth**: Categorize watchlist hits into "Observational" vs "Interdiction Required".
+- Update `/api/mission-feed` to prioritize "Critical Risk" events.
+
+#### [MODIFY] [ApplicationReview.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/ApplicationReview.jsx)
+- Add **Risk Factor Tags** to the application rows (e.g., "Frequent Crosser", "Watchlist Sensitivity").
+- In the detail drawer, implement a **"Forensic Evidence Link"** that shows why a risk score was generated (e.g., "Matched signature with archived passport ETH-442").
+
+### 2. Public Portal Excellence
+
+#### [MODIFY] [Apply.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/public/Apply.jsx)
+- Implement a **"Biometric Capture Simulation"** during the photo upload step.
+- Add "Industrial Grade" validation feedback (e.g., "Document Resolution Verified", "Biometric Signature Extracted").
+
+#### [MODIFY] [Status.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/public/Status.jsx)
+- Enhance the status display with a professional **"Clearance Progress"** bar showing the adjudication stages (Encryption -> Forensic Check -> Officer Review -> Issuance).
+
+### 3. Visual & Aesthetic Refinement
+
+#### [MODIFY] [Dashboard.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Dashboard.jsx)
+- Integrate a **"Global Security Level"** indicator (Alpha, Bravo, Charlie, Delta) based on recent watchlist hits and system anomalies.
+- Refine the **"Hardware Telemetry"** widget to include "System Latency" and "Capture Node" status.
+
+## Open Questions
+
+- Should the "Global Security Level" be manually set by an Administrator, or should it automatically escalate based on a rolling 24-hour anomaly count? (Proposing automatic with manual override).
+
+## Verification Plan
+
+### Automated Tests
+- `new-crossing-flow`: Process a new crossing and verify the `mission-feed` updates in real-time with the correct risk priority.
+- `biometric-conflict-test`: Use passport `ETH-902123` to trigger a known conflict and verify the "Forensic Evidence" UI displays correctly.
+
+### Manual Verification
+1. Access the Public Portal and complete an application, observing the "Biometric Capture" feedback.
+2. Log in as an Administrator and verify the "Global Security Level" reflects recent activity.
+3. Review an application in `ApplicationReview` and ensure the Risk Factor tags are visible and accurate.

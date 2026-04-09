@@ -1,0 +1,9 @@
+- `[ ]` Add `/api/reports/stats` endpoint to `server.js` for aggregated visa metrics
+- `[ ]` Refactor `History.jsx` into a Reporting Catalog
+    - `[ ]` Implement "Catalog Mode" (Card Selection)
+    - `[ ]` Implement "Report Configuration" (Dynamic Filters)
+    - `[ ]` Implement "Visa Lifecycle Stats" display with counts
+    - `[ ]` Implement "Daily Crossing Audit" detail list
+- `[ ]` Synchronize `App.jsx` and `Layout.jsx` sidebar labels for "Operational Reports"
+- `[ ]` Verify cross-table data integrity (applications vs. crossings)
+- `[ ]` Create Walkthrough for the Reporting Hub

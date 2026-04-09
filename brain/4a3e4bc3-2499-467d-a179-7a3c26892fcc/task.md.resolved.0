@@ -1,0 +1,15 @@
+# Frontend Aesthetic Overhaul
+
+- [ ] **Global Styling Updates**
+    - Update `index.css` with a premium light/dark scheme.
+    - Set brand variables: `<span style="color:#1C519D">Blue</span>`, Green, Yellow, Red.
+- [ ] **Header Restyling**
+    - Update `PublicHeader.jsx` to load `ics-logo.png`.
+    - Revamp `Header.css` and `Public.css` for a sleek blur/glassmorphism effect.
+- [ ] **Page Makeovers**
+    - Refactor `Home.jsx` (Hero banner, glass cards).
+    - Refactor `Apply.jsx` (Premium form controls).
+    - Refactor `Status.jsx` (Animated tracker/results).
+- [ ] **Final Polish**
+    - Smooth transiton animations globally.
+    - Verify logo renders properly.

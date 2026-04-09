@@ -1,0 +1,11 @@
+# Tasks
+- [x] Log in to http://localhost:5173/login
+- [x] Verify Dashboard loads
+- [ ] Verify MISSION SEC-LEVEL (Still searching)
+- [x] Verify Hardware Telemetry (Verified: Doc Reader, Bio Cam, Nat Sys Link)
+- [x] Screenshot Dashboard
+- [ ] Go to Applications page
+- [ ] Open application detail drawer
+- [ ] Verify Forensic Risk Rating and evidence items
+- [ ] Screenshot application detail drawer
+- [ ] Final report

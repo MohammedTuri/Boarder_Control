@@ -1,0 +1,22 @@
+# ICS Prototype: Admin Feature Additions
+
+In this phase, we continued building out the administrative features for the Ethiopian Border Control System prototype based on tasks from the previous session.
+
+## Changes Implemented
+
+### 1. Agent Editing Capabilities
+We upgraded the system administration page to allow inline editing of border agents.
+
+- **Edit Mode Hook**: Added a dedicated `Edit` action icon in the active personnel registry for every agent row. Clicking it seamlessly auto-fills the registration form, replacing it with an "Edit Agent" view. 
+- **Partial Updates**: Implemented logic so that admins can easily edit agent names, assigned checkpoints, or system roles and only apply those specific changes.
+- **Optional Passcode Reset**: Administrators can choose to leave the "Passcode" field blank so that the agent's current passcode isn't altered during updates, or input a new passcode to reset it.
+- **REST Integration**: Wired up the edit view to call our backend's `PUT /api/admin/users/:id` endpoint natively for data persistence.
+
+### 2. Admin Roster CSV Exports
+The prototype now has robust external reporting for users and historical logs.
+
+- **Data Serialization**: Built a one-click "Export CSV" feature on the Admin dashboard.
+- **Output Management**: Generates an instantaneous browser-based downloadable report `border_agents_[date].csv` containing Agent ID, Name, Checkpoint, and Role — avoiding backend trips and ensuring rapid reporting capabilities.
+
+> [!NOTE]
+> The backend `PUT` endpoint for user management was previously built, meaning these edits perfectly connect with the database for immediate usage by system administrators!

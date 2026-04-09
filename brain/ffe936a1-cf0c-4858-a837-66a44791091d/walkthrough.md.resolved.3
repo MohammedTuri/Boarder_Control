@@ -1,0 +1,29 @@
+# Biometric Engine Repair Walkthrough
+
+The biometric integrity system has been successfully repaired and synchronized across all mission-critical modules.
+
+## Technical Fixes Applied
+
+### 1. Public Portal Data Integrity
+The e-Visa application portal was previously failing to transmit physical biometric documents (photos) to the national archives.
+- **Improved Transmission**: Updated the submission engine to use `multipart/form-data` via the `FormData` API.
+- **Archive Verification**: Biometric documents are now correctly persisted in the system's secure `uploads/` directory during application.
+
+### 2. Operational State Synchronization
+The Traveler Processing module was performing local simulations but failing to ingest the authoritative forensic verdicts from the backend.
+- **Real-time Hydration**: The processing UI now dynamically updates with the server's biometric match scores and status.
+- **Identity Conflict Visibility**: If the backend detects a biometric conflict (e.g., an `ETH-` prefix passport), the UI correctly displays the "IDENTITY FRAUD DETECTED" state with the specific conflict details.
+
+## Verification Scenarios
+
+### Identity Conflict Validation (Forensic Demo)
+To verify the system's interdiction capability, we tested with the `ETH-` passport prefix which triggers a controlled biometric conflict:
+1. **Input**: Passport `ETH-001-ALPHA`.
+2. **Action**: Upload traveler photo and click "Process Traveler".
+3. **Result**: System successfully blocks the transaction with a `409 CONFLICT` and displays **"CRITICAL ID CONFLICT: Biometric signature already associated with another document."**
+
+### Document Persistence
+We verified that photos uploaded via both the Public Portal and the Operational Gateway are correctly stored and linked to the traveler's permanent forensic profile.
+
+> [!IMPORTANT]
+> The biometric engine is now fully synchronized. All interdictions based on identity conflicts will be logged to the National Audit Trail for supervisor review.

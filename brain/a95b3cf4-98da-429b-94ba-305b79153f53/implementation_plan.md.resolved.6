@@ -1,0 +1,52 @@
+# Final Operational Security & Configuration
+
+This plan focuses on finalizing the production-readiness of the ICS Command Center by securing sensitive credentials and establishing a permanent audit trail for all critical administrative operations.
+
+## User Review Required
+
+> [!CAUTION]
+> Hardcoded credentials will be removed from `server.js` and moved to a `.env` file. The server will require this file to start correctly in production.
+> We will add an `audit_logs` table to the database. This will record specific details (who, what, when, IP) for watchlist and personnel changes.
+
+## Proposed Changes
+
+### [Backend] Configuration & Security
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Install and configure `dotenv`.
+- Replace hardcoded `JWT_SECRET` and `PG_PASSWORD` with `process.env` references.
+- Implement an `auditLog(userId, action, details)` helper function.
+- Integrate audit logging into `POST/DELETE /api/watchlist` and `POST /api/users`.
+
+#### [MODIFY] [schema.sql](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/schema.sql)
+- **[NEW TABLE]** `audit_logs`:
+  - `id`, `user_id` (FK), `action`, `details`, `ip_address`, `created_at`.
+
+---
+
+### [Frontend] Administrative Oversight
+
+#### [NEW] [AuditLogs.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/AuditLogs.jsx)
+- A new restricted page for Administrators to view the system's operational history.
+- Filters for action type and date range.
+
+#### [MODIFY] [App.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/App.jsx)
+- Register the `/admin/audit` route with `RoleProtectedRoute` allowed for `['Administrator']`.
+
+#### [MODIFY] [Sidebar.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Sidebar.jsx)
+- Add "Audit Trail" to the sidebar for Administrators.
+
+## Open Questions
+
+- Should we also log standard "Traveler Processing" events in the audit log, or is the `crossings` table history sufficient? (Current proposal: Only administrative/security-sensitive actions to keep the audit trail high-signal).
+- Should we include a "System Login" log?
+
+## Verification Plan
+
+### Automated Tests
+- Browser subagent will log in as `ADM-001`, perform a watchlist update, and verify the record appears in the new Audit Trail page.
+- Browser subagent will verify the server starts correctly using environment variables (after manual setup).
+
+### Manual Verification
+- Visual check of the Audit Trail table and formatting.
+- Ensure only Administrators can see the Audit Trail in the sidebar.

@@ -1,0 +1,9 @@
+[0] (500,500)<div  />
+	ICS COMMAND
+	Secure Authenticated Access Only
+	Authentication failed
+	[1] (500,476)<label >Agent Operations ID />
+	[2] (500,537)<input class='sys-input mono text-lg uppercase' placeholder='AGT-***' />
+	[3] (500,623)<label >Passcode />
+	[4] (500,685)<input class='sys-input mono text-lg' placeholder='••••••••' />
+	[5] (500,817)<button class='sys-btn primary auth-btn'>Authenticate />

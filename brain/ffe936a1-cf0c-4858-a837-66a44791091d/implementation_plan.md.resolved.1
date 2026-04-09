@@ -1,0 +1,28 @@
+# Biometric Engine Repair Plan
+
+The "Biometrics is not working" report stems from two primary synchronization issues between the frontend and backend:
+1. **Public Portal Data Leakage**: The e-Visa application portal is currently not transmitting the biometric document (photo) to the backend.
+2. **Operational State Desync**: The Traveler Processing module performs a simulation but fails to update the UI with the authoritative forensic result returned by the mission-critical backend.
+
+## Proposed Changes
+
+### [ICS Frontend](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend)
+
+#### [MODIFY] [Apply.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/public/Apply.jsx)
+- Transition `handleSubmit` from JSON-based submission to `FormData` to ensure the biometric document is correctly transmitted to the national archives.
+- Align field names with the backend `document` parameter.
+
+#### [MODIFY] [Processing.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Processing.jsx)
+- Update `handleSubmit` to capture the `biometric` result from the server response.
+- Hydrate the `biometricData` state with the authoritative server result, ensuring the officer sees the final interdiction verdict.
+
+### [ICS Backend](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend)
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Ensure the `POST /api/applications` route correctly handles the file upload and creates a reference in the system.
+
+## Verification Plan
+
+### Automated/Manual Testing
+- **Public Portal Test**: Submit a new application with a photo and verify the backend logs confirm receipt of the file in the `uploads/` directory.
+- **Operational Interdiction Test**: Process a traveler with a passport starting with `ETH-` and verify that the UI correctly shifts to the "IDENTITY FRAUD DETECTED" state with the specific conflict details from the server.

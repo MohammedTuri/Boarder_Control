@@ -1,0 +1,24 @@
+# Public Portal & Secure Command Center Integration
+
+- [x] Public Portal Layout
+  - [x] Implement `src/components/PublicLayout.jsx`
+  - [x] Implement `src/components/PublicHeader.jsx`
+  - [x] Implement `src/components/PublicFooter.jsx`
+- [x] Public Pages
+  - [x] Build `/` (Landing Home Page)
+  - [x] Build `/about`
+  - [x] Build `/information`
+  - [x] Build `/apply` (E-Visa / Crossing Pre-Approval Form)
+  - [x] Build `/contact`
+- [x] Application Routing & Security
+  - [x] Restructure `src/App.jsx` to map public routes vs `/admin/*` routes
+  - [x] Implement global `AuthContext.jsx` for RBAC mapping
+  - [x] Modify `Sidebar.jsx` to respect roles (Admin, Supervisor, Officer)
+- [x] Admin Portal Upgrades
+  - [x] Update `Login.jsx` to leverage new Auth Context
+  - [x] Add `TravelerSearch.jsx` & profile lookup features
+  - [x] Add Administrator `UserManagement.jsx` page
+- [x] Backend Data Integration
+  - [x] Update `schema.sql` (users, applications tables)
+  - [x] Update `server.js` API endpoints
+  - [x] Build `seed.js` for local data population

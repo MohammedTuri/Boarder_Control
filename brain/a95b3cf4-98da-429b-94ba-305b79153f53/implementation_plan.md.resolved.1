@@ -1,0 +1,59 @@
+# Finalize ICS Core Features & Watchlist Management
+
+This plan focuses on completing the "missing links" in the ICS Border Control System, moving from mock-ups to functional modules for traveler querying, watchlist management, and account security.
+
+## User Review Required
+
+> [!IMPORTANT]
+> A new "Watchlist" navigation item will be added to the Admin Sidebar.
+> Restricted: Only Administrators can add or remove entries from the Watchlist.
+
+## Proposed Changes
+
+### [Backend] Data Query & Security
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Add `/api/search` endpoint: Queries `crossings`, `applications`, and `watchlist` by Passport Number or Name.
+- Add `/api/settings/password` endpoint: Allows authenticated users to change their account password.
+- Add `/api/watchlist/:id` (DELETE): Allows Administrators to remove entries from the watchlist.
+
+---
+
+### [Frontend] Admin Command Center
+
+#### [NEW] [Watchlist.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Watchlist.jsx)
+- A new page for viewing and managing the national watchlist.
+- Features: Add Entry (Admin), View All, and Remove Entry (Admin).
+
+#### [MODIFY] [Sidebar.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Sidebar.jsx)
+- Add "Watchlist" and "Search" menu items.
+
+#### [MODIFY] [TravelerSearch.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/TravelerSearch.jsx)
+- Remove mock data.
+- Fetch real profile, history, and application data via the new `/api/search` endpoint.
+
+#### [MODIFY] [Settings.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Settings.jsx)
+- Connect "Change Passcode" form to the backend `/api/settings/password` endpoint.
+
+---
+
+### [Frontend] Public Portal
+
+#### [MODIFY] [Contact.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/public/Contact.jsx)
+- Add real ICS office locations, emergency contacts, and a functional (mocked backend) contact form.
+
+## Open Questions
+
+- Should we display the photo in the Traveler Search if it exists in the crossing record? (Currently, crossings store a `photo_path`).
+- Do we need a separate "Audit Log" for watchlist changes, or is a simple created/deleted state sufficient for now?
+
+## Verification Plan
+
+### Automated Tests
+- Browser subagent will search for a traveler known to be in the database (e.g., Ahmed Ousmane).
+- Browser subagent will add a new entry to the watchlist as an Admin and verify it appears.
+- Browser subagent will attempt to change a password and then re-login with the new password.
+
+### Manual Verification
+- Verify the public contact form submission feedback.
+- Verify that "Watchlist" matches correctly trigger alerts during "Traveler Processing".

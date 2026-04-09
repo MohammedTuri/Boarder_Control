@@ -1,0 +1,6 @@
+- [ ] Initialize Git repository in the root directory
+- [ ] Create root `.gitignore` file
+- [ ] Create `ics-backend/.gitignore` file
+- [ ] Stage all files for commit
+- [ ] Perform the initial commit
+- [ ] Provide instructions for the final push

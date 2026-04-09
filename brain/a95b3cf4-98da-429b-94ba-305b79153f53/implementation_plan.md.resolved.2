@@ -1,0 +1,53 @@
+# Polish ICS UI & Administrative Experience
+
+This plan aims to finalize the "command center" feel of the application by replacing remaining mock elements with real-time dynamic data and ensuring the public portal is comprehensive.
+
+## User Review Required
+
+> [!NOTE]
+> The Dashboard chart will now show actual crossing activity from the database rather than a fixed daily curve. If there is no activity in the last 24h, it will appear flat.
+
+## Proposed Changes
+
+### [Frontend] Administrative Shell
+
+#### [MODIFY] [Header.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Header.jsx)
+- Use `useAuth` to display the current user's name and role.
+- Implement the `logout` function from `AuthContext` in `handleLogout`.
+
+#### [MODIFY] [Dashboard.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Dashboard.jsx)
+- Update the chart data logic to process the last 24h of crossings into hourly buckets.
+
+---
+
+### [Frontend] Public Portal Content
+
+#### [MODIFY] [Home.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/public/Home.jsx)
+- Add "Current Border Status" and "Latest News" sections.
+
+#### [MODIFY] [Information.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/public/Information.jsx)
+- Add detailed e-visa requirements, land border crossing protocols, and fee structures.
+
+---
+
+### [Backend] Media & Data Services
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Serve the `uploads` directory as static files using `express.static`.
+- (Optional) Enhance `/api/stats` to include the time-series data for the dashboard chart.
+
+## Open Questions
+
+- Should the dashboard chart only show "Cleared" crossings, or all activity including "Flagged" ones?
+- For the public "Information" page, should we include a downloadable PDF of the official ICS regulations?
+
+## Verification Plan
+
+### Automated Tests
+- Browser subagent will log in and verify that the header displays the correct Agent Name.
+- Browser subagent will log out and verify it returns to the login screen and cannot navigate back to `/admin`.
+- Browser subagent will verify that a newly added crossing appears in the "Latest Activity" (if applicable).
+
+### Manual Verification
+- Verify the responsive behavior of the new Information page content.
+- Ensure uploaded photos (if any) are correctly rendered in the Traveler Search.

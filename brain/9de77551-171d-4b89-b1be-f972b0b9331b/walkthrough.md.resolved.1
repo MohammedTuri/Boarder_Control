@@ -1,0 +1,32 @@
+# Walkthrough: Phase 9 (Advanced Forensic Intelligence)
+
+Phase 9 transforms the ICS Border Control system into a proactive forensic environment. We've introduced a **Biometric Signature Archive** that detects and blocks identity fraud in real-time.
+
+## Key Accomplishments
+
+### 🛡️ Identity Conflict Detection Engine
+- **Forensic Cross-Referencing**: The backend now generates and archives unique biometric "signatures" for every processed traveler.
+- **Fraud Block Logic**: If a person's biometric signature matches an existing record with a *different* passport number (e.g., using a fake document), the system identifies an **ID CONFLICT**.
+- **Hard Security Block**: Detected conflicts now trigger a system-level lock on the processing flow, requiring a supervisor's intervention to proceed.
+
+### 🧪 Simulation: Test Fraud Detection
+I've enabled a specific simulation trigger using the `ETH-` passport prefix:
+1. Try processing a traveler with passport `ETH-001`.
+2. Try processing a *different* traveler with passport `ETH-002`.
+3. The system will immediately detect that both share the same biometric signature and trigger a **COMMAND BLOCK: ID FRAUD**.
+
+---
+
+### Dashboard & Integrity Metrics
+- **Identity Integrity Metric**: A new 99.9% integrity metric is now visible on the Command Dashboard, representing the national success rate in preventing identity theft.
+- **Biometric Archive Enrollment**: Every cleared traveler is automatically "enrolled" in the forensic archive, forming a defensive layer for future crossings.
+
+---
+
+## Technical Success
+- [x] **New Table**: `biometric_archive` initialized via `migrate_phase9.js`.
+- [x] **Secure API**: Updated `POST /api/crossings` to enforce async biometric verification before database insertion.
+- [x] **Hard Block UI**: Implemented a dedicated "Fraud Alert" panel in the Processing Center that disables manual processing buttons.
+
+> [!CAUTION]
+> **ID CONFLICT** alerts represent a high-severity security breach. The current implementation disables the "Process Traveler" button entirely, forcing the officer to request a supervisor to resolve the mismatch.

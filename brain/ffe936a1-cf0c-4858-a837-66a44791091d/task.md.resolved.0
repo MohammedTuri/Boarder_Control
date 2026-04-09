@@ -1,0 +1,18 @@
+# Final Forensic Industrialization - Task List
+
+- [ ] **Backend: Forensic Logic & Feed Upgrades**
+    - [ ] Update `calculateRiskScore` in `server.js` with station proximity and watchlist depth.
+    - [ ] Refine `/api/mission-feed` to prioritize critical forensic events.
+- [ ] **Frontend: Adjudication Hardening**
+    - [ ] Add Risk Factor Tags to `ApplicationReview.jsx` table and detail view.
+    - [ ] Implement "Forensic Evidence Link" in `ApplicationReview.jsx` to show match details.
+- [ ] **Frontend: Public Portal Excellence**
+    - [ ] Update `Apply.jsx` with "Biometric Capture Simulation" and validation feedback.
+    - [ ] Enhance `Status.jsx` with a professional "Clearance Progress" bar.
+- [ ] **Frontend: Mission Control Refinement**
+    - [ ] Integrate "Global Security Level" (Alpha/Bravo/Charlie/Delta) in `Dashboard.jsx`.
+    - [ ] Refine Hardware Telemetry widget with latency and node status.
+- [ ] **Verification**
+    - [ ] Verify real-time mission feed updates with high-priority risk events.
+    - [ ] Validate biometric conflict "Forensic Evidence" UI.
+    - [ ] Test the public portal's new progress tracking.

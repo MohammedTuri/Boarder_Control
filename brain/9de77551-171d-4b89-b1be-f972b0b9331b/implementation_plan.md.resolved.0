@@ -1,0 +1,55 @@
+# Phase 8: Finalizing Traveler Movement Context & Forensic Analytics
+
+Integrate the newly added `point_of_entry` field into the broader system's intelligence and reporting layers. This ensures that border command has full situational awareness of movement patterns across all national stations.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This phase modifies the `seed.js` script to include more diverse historical data. If there is existing manual test data in the database, running the new seed script will TRUNCATE and replace it.
+
+- **Frontend Navigation**: Adding a new "Station Volume" chart to the Dashboard. 
+- **Forensic API**: New endpoint for station-based analytics.
+
+## Proposed Changes
+
+### [Backend] Data Logic & Persistence
+
+#### [MODIFY] [seed.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/seed.js)
+- Update crossing seed data to include `point_of_entry`.
+- Add more entries with varied stations (Bole, Moyale, Togochale) and timestamps to populate analytics.
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Enhance `calculateRiskScore` to include factors for station-based anomalies (e.g., crossing at an unexpected border).
+- Update `/api/reports/stats` to include a station-based volume breakdown.
+- Ensure crossing history in `/api/risk-profile/:passport` highlights the primary point of entry.
+
+---
+
+### [Frontend] Dashboard & Command Center
+
+#### [MODIFY] [Dashboard.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Dashboard.jsx)
+- Implement a new "Movement by Station" visualization (Bar Chart) to complement the time-series crossing volume.
+
+#### [MODIFY] [History.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/History.jsx)
+- Update the "Intelligence" (Analytics) view for the Crossings report to include station distribution.
+
+#### [MODIFY] [TravelerProfile.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/TravelerProfile.jsx)
+- Add a "Primary Port" indicator to the traveler's intelligence summary based on their crossing history.
+
+## Open Questions
+
+- Should the Port of Entry be restricted to a predefined list in the backend, or should we continue to allow any string (currently it's a `VARCHAR(100)`)?
+- For the Dashboard, should the station volume chart show the "Last 24h" or "All Time" by default?
+
+## Verification Plan
+
+### Automated Tests
+- Run `node migrate_phase8.js` (ensure it's idenmpotent).
+- Run `node seed.js` to populate the new data structure.
+- Verify API responses for `/api/reports/stats` using `curl` or manual browser check.
+
+### Manual Verification
+- Log in as Administrator.
+- Navigate to Dashboard and verify the new "Movement by Station" chart displays data.
+- Navigate to Mission Reporting Hub -> Crossings Report -> Intelligence and verify the station distribution chart.
+- Search for a specific traveler and verify their "Primary Port" is highlighted in their profile.

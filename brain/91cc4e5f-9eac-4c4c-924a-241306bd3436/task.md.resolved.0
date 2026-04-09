@@ -1,0 +1,20 @@
+# ICS Border Control System - Functional Upgrade
+
+- [ ] **Phase 1: Backend Core & Security**
+    - [ ] Update `ics-backend/schema.sql` (Add `watchlist` table, improve `users`)
+    - [ ] Install backend dependencies (`jsonwebtoken`, `bcrypt`)
+    - [ ] Update `ics-backend/server.js` (Add Login, JWT, User/Watchlist CRUD)
+    - [ ] Update `ics-backend/seed.js` & Run seeding
+- [ ] **Phase 2: Public Portal Enhancements**
+    - [ ] Fix Port & API URL in `ics-frontend/src/pages/public/Apply.jsx`
+    - [ ] Create `ics-frontend/src/pages/public/Status.jsx` (Application Tracking)
+    - [ ] Update `ics-frontend/src/components/PublicHeader.jsx`
+- [ ] **Phase 3: Command Center (Admin) Logic**
+    - [ ] Update `ics-frontend/src/context/AuthContext.jsx` (Token management)
+    - [ ] Update `ics-frontend/src/pages/Login.jsx` (Real Auth)
+    - [ ] Connect `ics-frontend/src/pages/Processing.jsx` (Real Watchlist check)
+    - [ ] Connect `ics-frontend/src/pages/UserManagement.jsx` (Admin only CRUD)
+- [ ] **Phase 4: Verification & Polishing**
+    - [ ] Test E-Visa Tracking flow
+    - [ ] Test Border Agent Processing flow
+    - [ ] Test Admin Personnel flow

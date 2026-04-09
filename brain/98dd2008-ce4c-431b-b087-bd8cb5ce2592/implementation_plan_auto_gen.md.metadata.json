@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to implement automatic report generation on selection in the Reporting Hub. This will involve setting default date ranges and triggering the report engine immediately when a template is selected from the sidebar.",
+  "updatedAt":  "2026-04-02T13:09:04.078007700Z",
+  "requestFeedback":  true
+}

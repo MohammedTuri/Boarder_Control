@@ -1,0 +1,8 @@
+- [ ] Start backend server and seed database
+- [ ] Implement `ProtectedRoute` component
+- [ ] Implement `RoleProtectedRoute` component
+- [ ] Update `App.jsx` to wrap with `AuthProvider` and protect admin routes
+- [ ] Connect `History.jsx` (fetch and display crossings)
+- [ ] Connect `UserManagement.jsx` (fetch and add users)
+- [ ] Finalize `Apply.jsx` and `Status.jsx`
+- [ ] Verify functionality with a test login

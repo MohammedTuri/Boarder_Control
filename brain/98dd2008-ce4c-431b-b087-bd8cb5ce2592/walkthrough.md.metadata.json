@@ -1,0 +1,5 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary":  "Walkthrough of the new Visa Application Command Module, including backend API extensions, high-fidelity review UI, and dashboard integration. The module allows border supervisors to adjudicate incoming requests, completing the operational loop between the public portal and admin command center.",
+  "updatedAt":  "2026-04-02T12:38:42.384222800Z"
+}

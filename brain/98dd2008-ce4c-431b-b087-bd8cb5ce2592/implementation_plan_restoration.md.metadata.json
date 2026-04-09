@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to restore system stability and integrate movement context metadata. This phase resolves critical component crashes in the Dashboard and Search modules caused by missing dependency imports, while also surfacing the new 'Point of Entry' data in the forensic traveler profiles.",
+  "updatedAt":  "2026-04-02T14:21:00.385573200Z",
+  "requestFeedback":  true
+}

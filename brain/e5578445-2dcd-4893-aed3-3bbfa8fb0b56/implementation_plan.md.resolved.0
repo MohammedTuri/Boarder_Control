@@ -1,0 +1,61 @@
+# Authentication, Settings, & Reporting Implementation
+
+This plan updates the ICS Command Center with new functionalities requested: workable settings, password management, session logout, and transitioning from live history tables to a formalized report generation system.
+
+## User Review Required
+
+> [!IMPORTANT]
+> Please approve this plan. I have highlighted a few open questions below that will dictate the approach for the History & Dashboard pages.
+
+## Proposed Changes
+
+---
+
+### 1. Authentication Flow
+#### [NEW] `src/pages/Login.jsx`
+- Add a high-fidelity mock Login page with secure styling. When users click "Log Out", they will be redirected here.
+
+#### [MODIFY] `src/App.jsx`
+- Add routing for the new `/login` and `/settings` pages.
+- Wrap the main application layout in a simple Auth guard so the app simulates standard login/logout mechanisms.
+
+#### [MODIFY] `src/components/Header.jsx`
+- Add a functional "Log Out" button, represented by an exit icon next to the user profile. Clicking it will clear mock session data and route to `/login`.
+
+---
+
+### 2. Settings & Password Security
+#### [NEW] `src/pages/Settings.jsx`
+- Create a dedicated settings dashboard.
+- Build a "Change Password" form card requiring `Current Password`, `New Password`, and `Confirm Password`.
+- Implement local mock validation logic that validates the passwords match and renders a success alert upon updating.
+
+#### [MODIFY] `src/components/Sidebar.jsx`
+- Update the bottom "Settings" button to utilize `NavLink`, enabling it to dynamically route the user to `/settings`.
+
+---
+
+### 3. Dashboard Refactoring & Reports
+#### [MODIFY] `src/pages/Dashboard.jsx`
+- Remove the "Recent Crossings" table entirely to declutter the dashboard.
+- Replace the removed table section with a "Reporting Actions" panel containing a "Generate Daily Report" button. This will simulate aggregating data and visually provide mock feedback as if generating a secure document.
+
+#### [MODIFY] `src/pages/History.jsx`
+- Hide the primary data table as requested.
+- Redesign this view into a "Report Generator" interface. Instead of viewing raw data rows, the agent can select date parameters and click "Export Logs" to generate mock CSV/PDF reports.
+
+## Open Questions
+
+> [!TIP]
+> Tell me your thoughts on these before we begin coding.
+
+1. **Authentication:** I am adding a "Login Screen" to make the Log Out button functional. Is this acceptable?
+2. **History Page:** As per your instruction, I am hiding the big table in `History.jsx` and replacing it with a Report Parameters form. Should I completely eliminate all tables, or keep a small, minimal "preview" of history before they generate the report?
+
+## Verification Plan
+
+### Manual Verification
+1. Navigate the interface and click the "Log Out" button to verify seamless redirection to Login.
+2. Visit the simulated Login screen and re-enter.
+3. Access "Settings", attempt to securely change the mock password, and verify visual success feedback.
+4. Go to Dashboard and History, confirm tables are hidden, and test the "Generate Report" interactions.

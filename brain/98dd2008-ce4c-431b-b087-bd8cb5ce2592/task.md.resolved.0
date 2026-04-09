@@ -1,0 +1,10 @@
+- `[/]` Backend: Add `PATCH /api/applications/:id/status` endpoint with audit logging
+- `[ ]` Backend: Add `GET /api/applications/:id` single application endpoint
+- `[ ]` Backend: Enhance `GET /api/stats` to include pending applications count
+- `[ ]` Frontend: Create `ApplicationReview.css` styles
+- `[ ]` Frontend: Create `ApplicationReview.jsx` with table, filters, detail drawer, actions
+- `[ ]` Frontend: Update `App.jsx` with new route
+- `[ ]` Frontend: Update `Sidebar.jsx` with new nav item + pending badge
+- `[ ]` Frontend: Enhance `Dashboard.jsx` with pending applications stat card
+- `[ ]` Verify: Start backend and frontend, test full workflow
+- `[ ]` Create walkthrough

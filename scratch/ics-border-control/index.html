@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian ICS - Land Border Control System</title>
+    <meta name="description" content="Prototype dashboard for the Ethiopian Immigration and Citizenship Service (ICS) Land Border Control.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Login Portal -->
+    <div id="login-container" class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <i class='bx bxs-shield bg-gold-text' style="font-size: 48px;"></i>
+                <h2>ICS Portal</h2>
+                <p>Restricted Government Access</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Agent ID</label>
+                    <input type="text" id="login-username" placeholder="e.g. AGENT_01" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 30px;">
+                    <label>Passcode</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                    <small style="color: var(--text-muted); display: block; margin-top: 8px;">Demo credentials: AGENT_01 / demo123</small>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Authenticate</button>
+                <div id="login-error" class="hidden" style="color: var(--alert-red); margin-top: 15px; text-align: center; font-size: 13px;">Invalid Agent ID or Passcode</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapped -->
+    <div id="app-container" class="app-container hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <!-- Placeholder for ICS Logo -->
+                    <i class='bx bxs-shield bg-gold-text'></i>
+                    <div class="logo-text">
+                        <h2>ICS</h2>
+                        <span>Border Control</span>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="active"><a href="#" onclick="switchTab('dashboard')"><i class='bx bx-grid-alt'></i> Dashboard</a></li>
+                <li><a href="#" onclick="switchTab('processing')"><i class='bx bx-scan'></i> Process Traveler</a></li>
+                <li><a href="#" onclick="switchTab('history')"><i class='bx bx-history'></i> Timeline Log</a></li>
+                <li><a href="#" onclick="switchTab('watchlist')"><i class='bx bx-error-circle'></i> Watchlists</a></li>
+                <li id="nav-admin" class="hidden"><a href="#" onclick="switchTab('admin')"><i class='bx bx-shield-alt-2'></i> System Admin</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="agent-profile" style="display: flex; align-items: center; width: 100%;">
+                    <img src="https://ui-avatars.com/api/?name=Agent&background=0A3B22&color=fff" alt="Agent" style="width: 38px; height: 38px;">
+                    <div class="agent-info">
+                        <strong id="agent-name-display" style="font-size: 13px;">Loading...</strong>
+                        <span id="agent-chk-display" style="font-size: 11px; opacity: 0.8;">Checkpoint</span>
+                    </div>
+                    <button class="icon-btn" onclick="logout()" title="Logout" style="margin-left: auto; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"><i class='bx bx-log-out' style="color: #fff; font-size: 16px;"></i></button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header section -->
+            <header class="top-nav">
+                <div class="search-bar">
+                    <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search by Passport Number..." id="global-search">
+                </div>
+                <div class="nav-actions">
+                    <button class="icon-btn"><i class='bx bx-bell'></i><span class="badge">3</span></button>
+                    <div class="system-status online">
+                        <span class="dot"></span>
+                        Status: Operational
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section id="view-dashboard" class="view-section active">
+                <div class="page-header">
+                    <h1>Command Center overview</h1>
+                    <p>Live metrics from all land portals</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon arrivals"><i class='bx bx-log-in-circle'></i></div>
+                        <div class="stat-details">
+                            <h3>Total Entries</h3>
+                            <h2 id="total-entries">1,245</h2>
+                            <p class="trend up"><i class='bx bx-trending-up'></i> +12% vs yesterday</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon departures"><i class='bx bx-log-out-circle'></i></div>
+                        <div class="stat-details">
+                            <h3>Total Exits</h3>
+                            <h2 id="total-exits">890</h2>
+                            <p class="trend up"><i class='bx bx-trending-up'></i> +5% vs yesterday</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon watchlists"><i class='bx bx-shield-quarter'></i></div>
+                        <div class="stat-details">
+                            <h3>Watchlist Matches</h3>
+                            <h2 id="total-alerts">3</h2>
+                            <p class="trend down"><i class='bx bx-trending-down'></i> -1 vs yesterday</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-tables">
+                    <!-- Recent Activity -->
+                    <div class="table-card">
+                        <div class="card-header">
+                            <h3>Recent Crossings</h3>
+                            <button class="btn-secondary">View All</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="recent-crossings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Traveler</th>
+                                        <th>Passport No.</th>
+                                        <th>Direction</th>
+                                        <th>Checkpoint</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Processing View -->
+            <section id="view-processing" class="view-section hidden">
+                <div class="page-header">
+                    <h1>Process Traveler</h1>
+                    <p>Scan MRZ or enter passport details manually</p>
+                </div>
+
+                <!-- Alert Banner -->
+                <div id="alert-banner" class="alert-banner hidden">
+                    <div class="alert-content">
+                        <i class='bx bx-error'></i>
+                        <div>
+                            <h4>WATCHLIST MATCH DETECTED</h4>
+                            <p>This passport number matches an active interpol red notice. Detain individual immediately and contact supervisor.</p>
+                        </div>
+                    </div>
+                    <button onclick="dismissAlert()" class="close-alert"><i class='bx bx-x'></i></button>
+                </div>
+
+                <div class="processing-container">
+                    <div class="form-card">
+                        <form id="processing-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Passport Number <span class="req">*</span></label>
+                                    <input type="text" id="pp-number" required placeholder="e.g. EP1234567">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nationality</label>
+                                    <select id="pp-nationality">
+                                        <option value="ETH">Ethiopian (ETH)</option>
+                                        <option value="KEN">Kenyan (KEN)</option>
+                                        <option value="DJI">Djiboutian (DJI)</option>
+                                        <option value="SOM">Somali (SOM)</option>
+                                        <option value="ERI">Eritrean (ERI)</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Given Names <span class="req">*</span></label>
+                                    <input type="text" id="pp-given" required placeholder="First Middle">
+                                </div>
+                                <div class="form-group">
+                                    <label>Surname <span class="req">*</span></label>
+                                    <input type="text" id="pp-surname" required placeholder="Last">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Checkpoint</label>
+                                    <select id="pp-checkpoint">
+                                        <option value="Moyale">Moyale (South)</option>
+                                        <option value="Metema">Metema (North-West)</option>
+                                        <option value="Galafi">Galafi (East)</option>
+                                        <option value="Dewele">Dewele (East)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Direction</label>
+                                    <div class="radio-group">
+                                        <label class="radio-btn"><input type="radio" name="direction" value="Entry" checked> Entry to ETH</label>
+                                        <label class="radio-btn"><input type="radio" name="direction" value="Exit"> Exit ETH</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="document.getElementById('processing-form').reset()">Clear</button>
+                                <button type="submit" class="btn-primary"><i class='bx bx-check-shield'></i> Authorize Crossing</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History View -->
+            <section id="view-history" class="view-section hidden">
+                <div class="page-header">
+                    <h1>Timeline Log</h1>
+                    <p>Complete historical log of all border crossings</p>
+                </div>
+                <div class="table-card">
+                    <div class="card-header">
+                        <div class="search-bar" style="width: 100%; max-width: 400px; margin: 0; border: 1px solid var(--border-light);">
+                            <i class='bx bx-search'></i>
+                            <input type="text" id="history-search" placeholder="Search history..." onkeyup="filterHistory()">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="full-history-table">
+                            <thead>
+                                <tr>
+                                    <th>Traveler</th>
+                                    <th>Passport No.</th>
+                                    <th>Direction</th>
+                                    <th>Checkpoint</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Watchlist View -->
+            <section id="view-watchlist" class="view-section hidden">
+                <div class="page-header">
+                    <h1>Watchlists & Alerts</h1>
+                    <p>Manage flagged individuals and active notices</p>
+                </div>
+                
+                <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="stat-card" style="border-left: 4px solid var(--alert-red);">
+                        <div class="stat-icon watchlists"><i class='bx bx-error'></i></div>
+                        <div class="stat-details">
+                            <h3>Active Watchlist Entries</h3>
+                            <h2 id="watchlist-count">3</h2>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="form-group" style="width: 100%; display: flex; flex-direction: row; gap: 12px; align-items: center;">
+                            <input type="text" id="new-watchlist-pp" placeholder="Enter Passport No. to flag..." style="flex: 1; height: 100%;">
+                            <button class="btn-primary" onclick="addWatchlist()" style="height: 100%;"><i class='bx bx-plus'></i> Add Alert</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="table-responsive">
+                        <table id="watchlist-table">
+                            <thead>
+                                <tr>
+                                    <th>Passport No.</th>
+                                    <th>Notes</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin View -->
+            <section id="view-admin" class="view-section hidden">
+                <div class="page-header">
+                    <h1>System Administration</h1>
+                    <p>Manage border agent credentials and system access</p>
+                </div>
+                
+                <div class="processing-container">
+                    <div class="form-card" style="margin-bottom: 32px; max-width: 100%;">
+                        <h3 style="margin-bottom: 16px;">Register New Agent</h3>
+                        <form id="agent-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Agent ID <span class="req">*</span></label>
+                                    <input type="text" id="new-agent-id" required placeholder="e.g. AGENT_04">
+                                </div>
+                                <div class="form-group">
+                                    <label>Full Name <span class="req">*</span></label>
+                                    <input type="text" id="new-agent-name" required placeholder="Name Surname">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Passcode <span class="req">*</span></label>
+                                    <input type="password" id="new-agent-pass" required placeholder="••••••••">
+                                </div>
+                                <div class="form-group">
+                                    <label>Assigned Checkpoint</label>
+                                    <select id="new-agent-chk">
+                                        <option value="Moyale">Moyale (South)</option>
+                                        <option value="Metema">Metema (North-West)</option>
+                                        <option value="Galafi">Galafi (East)</option>
+                                        <option value="Bole Intl">Bole Intl (Addis)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <select id="new-agent-role">
+                                        <option value="agent">Agent (Standard)</option>
+                                        <option value="admin">Administrator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions" style="margin-top: 16px;">
+                                <button type="button" class="btn-primary" onclick="addAgent()"><i class='bx bx-user-plus'></i> Provision Access</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="table-card">
+                    <div class="card-header">
+                        <h3>Active Personnel Registry</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="agents-table">
+                            <thead>
+                                <tr>
+                                    <th>Agent ID</th>
+                                    <th>Name</th>
+                                    <th>Checkpoint</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+    
+    <script src="./app.js"></script>
+</body>
+</html>

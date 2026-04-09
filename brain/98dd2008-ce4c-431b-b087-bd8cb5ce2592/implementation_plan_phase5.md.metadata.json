@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to implement automated communication logging and governance. This phase adds a transparency layer by tracking every notification (Email/SMS simulation) sent to travelers, ensuring that government decisions are always accompanied by verifiable communication records.",
+  "updatedAt":  "2026-04-02T13:11:12.085234500Z",
+  "requestFeedback":  true
+}

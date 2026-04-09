@@ -1,0 +1,49 @@
+# Phase 9: Advanced Forensic Intelligence & ID Conflict Awareness
+
+Elevate the system's defensive capabilities by implementing a real-time **Identity Conflict Detection** engine. This phase will allow the system to recognize when a singular biometric profile is associated with multiple distinct passport documents, a critical indicator of sophisticated identity fraud.
+
+## User Review Required
+
+> [!IMPORTANT]
+> This phase introduces a new **Biometric Archive** logic. All new traveler photos processed will be "indexed" (simulated signature stored) to enable future cross-referencing.
+
+- **Forensic Logic**: If a traveler photo matches an existing biometric signature but has a *different* passport number, a **CRITICAL ID CONFLICT** alert will be triggered in the processing center.
+
+## Proposed Changes
+
+### [Backend] Identity Conflict Engine
+
+#### [NEW] [migrate_phase9.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/migrate_phase9.js)
+- Create `biometric_archive` table: `id`, `passport`, `signature_hash`, `created_at`.
+
+#### [MODIFY] [server.js](file:///c:/Users/Mohammed/.gemini/antigravity/ics-backend/server.js)
+- Update `calculateBiometricMatch` to be `async` and perform archive lookup.
+- If a signature match is found for a *different* passport (simulated by the `ETH-` prefix), return `status: 'Identity Conflict'` and provide details of the conflicting document.
+- Auto-enroll new signatures into the `biometric_archive` upon successful crossing processing.
+
+---
+
+### [Frontend] Security Console & Alerts
+
+#### [MODIFY] [Processing.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Processing.jsx)
+- Update the Biometric Panel to handle the new `Identity Conflict` status.
+- Add a high-visibility "Forensic Alert" warning that specifically highlights the conflicting passport number.
+
+#### [MODIFY] [Dashboard.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Dashboard.jsx)
+- Add a new "Identity Integrity" metric to the lower dashboard panel.
+
+## Open Questions
+
+- **User Decision**: The system will **block processing entirely** when an Identity Conflict is detected. The "Process Traveler" button will be disabled and a security override will be required (rendered as a "Alert Command" panel).
+- **User Decision**: We will use the **`ETH-` prefix** to trigger simulated biometric matches that result in Identity Conflicts for demonstration purposes.
+
+## Verification Plan
+
+### Automated Tests
+- Run `node migrate_phase9.js`.
+- Use `curl` to POST two different travelers with a shared "simulated signature" and verify the second one returns an `Identity Conflict`.
+
+### Manual Verification
+- Process a traveler with passport `ETH-CONFLICT-1`.
+- Process a different traveler with passport `ETH-CONFLICT-2` (using the same photo or a prefix that triggers the match).
+- Verify the **ID CONFLICT** alert appears in the Processing sidebar.

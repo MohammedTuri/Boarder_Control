@@ -1,0 +1,6 @@
+- `[ ]` Create `SettingsContext.jsx` to manage operational state (Station, Alert Level, etc.)
+- `[ ]` Integrate `SettingsProvider` in `App.jsx`
+- `[ ]` Overhaul `Settings.jsx` with functional controls and persistence
+- `[ ]` Update `Dashboard.jsx` to display current Station Identity
+- `[ ]` Update `Header.jsx` to respect the "Enable Notifications" preference
+- `[ ]` Verify persistence across page refreshes

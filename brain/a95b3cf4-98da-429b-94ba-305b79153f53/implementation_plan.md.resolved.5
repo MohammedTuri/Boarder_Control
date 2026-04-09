@@ -1,0 +1,50 @@
+# Finalizing RBAC Boundaries
+
+This plan completes the industrial-grade Role-Based Access Control (RBAC) implementation for the ICS Border Control System. We are establishing clear boundaries between operational execution (Officers) and tactical Oversight (Supervisors/Administrators).
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Border Officers** will no longer be able to access the **Reports (History)** or **National Watchlist** modules. They will maintain full access to **Traveler Processing** and **Database Search** (targeted queries).
+> **Supervisors** and **Administrators** maintain full access to all modules, including the audit-heavy Reports page.
+
+## Proposed Changes
+
+### [Frontend] Route Protection Refinement
+
+#### [MODIFY] [App.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/App.jsx)
+- Wrap the `history` and `watchlist` routes in `RoleProtectedRoute` with `allowedRoles={['Administrator', 'Supervisor']}`.
+
+### [Frontend] Navigation Visibility
+
+#### [MODIFY] [Sidebar.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Sidebar.jsx)
+- Update the conditional rendering to hide the "Reports" and "Watchlist" menu items for users with the `Officer` role.
+
+---
+
+### [Role Matrix Summary]
+
+| Component | Administrator | Supervisor | Officer |
+| :--- | :---: | :---: | :---: |
+| Dashboard | ✅ | ✅ | ✅ |
+| Processing | ✅ | ✅ | ✅ |
+| Search | ✅ | ✅ | ✅ |
+| History (Reports) | ✅ | ✅ | ❌ |
+| Watchlist | ✅ | ✅ | ❌ |
+| Settings | ✅ | ✅ | ❌ |
+| Personnel | ✅ | ❌ | ❌ |
+
+## Open Questions
+
+- Should Officers be able to see the Dashboard stats (Total Processed, Today's Entries)? (Proposed: Yes, for situational awareness).
+- Should Officers be able to *view* the Watchlist without being able to *manage* it? (User requested "wrong same value" fix earlier, implying we should separate these concerns. Proposed: Hide Watchlist for Officers to prevent data scraping, rely on automated flags during processing).
+
+## Verification Plan
+
+### Automated Tests
+- Browser subagent will log in as `AGT-882` (Officer) and verify that "Reports" and "Watchlist" links are hidden and routes are unreachable (redirect to dashboard).
+- Browser subagent will log in as `SUP-142` (Supervisor) and verify all operational modules are accessible.
+
+### Manual Verification
+- Visual layout check for the "cleaner" sidebar for Border Officers.
+- Verify that "Access Denied" or "Redirect" logic is smooth during unauthorized navigation attempts.

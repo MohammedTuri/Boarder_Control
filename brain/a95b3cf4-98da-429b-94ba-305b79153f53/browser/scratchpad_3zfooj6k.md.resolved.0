@@ -1,0 +1,6 @@
+# Login Troubleshooting Plan
+- [ ] Open http://localhost:5173/login
+- [ ] Attempt to login with ADM-001 / password123
+- [ ] Observe the behavior (blank page, error message, redirect loop)
+- [ ] Check console and network logs
+- [ ] Report Findings

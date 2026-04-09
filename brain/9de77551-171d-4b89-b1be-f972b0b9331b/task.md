@@ -1,0 +1,6 @@
+- `[ ]` Rebrand `PublicPages.css` with authoritative color palette and modern UI patterns
+- `[ ]` Overhaul `Home.jsx` with architectural hero, live border widgets, and traveler journey map
+- `[ ]` Redesign `Apply.jsx` into a high-fidelity 4-step wizard with Biometric Pre-Check
+- `[ ]` Transform `Status.jsx` into a visual timeline with pre-approval certificate download
+- `[ ]` Enhance `server.js` for detailed application timeline status
+- `[ ]` Final polish and responsive verification

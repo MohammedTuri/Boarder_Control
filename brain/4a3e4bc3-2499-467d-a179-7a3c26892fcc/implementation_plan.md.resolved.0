@@ -1,0 +1,29 @@
+# In-Page Security Audit Display
+
+The user wants the "View All Activity" button in the notification dropdown to display detailed information on the current page instead of redirecting to the Operational Reports page. This improves UX by maintaining the current operational context (e.g., while on the Dashboard).
+
+## User Review Required
+
+> [!IMPORTANT]
+> The "View All Activity" button will now open a centralized **Security Audit Modal** on your current screen. This eliminates the need to jump back and forth between the Dashboard and the Reports page for quick tactical verification.
+
+## Proposed Changes
+
+### [Header Component](file:///C:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Header.jsx)
+
+#### [MODIFY] [Header.jsx](file:///C:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Header.jsx)
+- **State Management**: Add `showFullAudit` state to handle the visibility of the new modal.
+- **New UI Element**: Implement a `SecurityAuditModal` within the Header component that displays:
+    - A full table of recent flagged crossings.
+    - Quick-action buttons to navigate directly to traveler profiles.
+    - Close functionality that returns the user exactly where they were.
+- **Button Logic**: Update the `view-all-btn` `onClick` handler to toggle the modal instead of calling `navigate()`.
+
+## Verification Plan
+
+### Manual Verification
+- Click the notification bell.
+- Click "View All Activity".
+- Verify that a large, detailed modal appears over the current page showing the full list of alerts.
+- Click a traveler in that list and ensure it goes to their profile.
+- Close the modal and ensure the user is still on their original page (e.g., Dashboard).

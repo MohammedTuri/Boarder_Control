@@ -1,0 +1,39 @@
+# Final Polish - Real Data Completion & Operational Alerts
+
+This final phase focuses on correcting the remaining data mocks in the Dashboard and adding an "Alerts" subsystem to the header for immediate notification of security incidents.
+
+## User Review Required
+
+> [!TIP]
+> The Dashboard will now feature a "Recent Primary Events" table, showing the 5 most recent crossings in real-time.
+
+## Proposed Changes
+
+### [Frontend] Dashboard Refinement
+
+#### [MODIFY] [Dashboard.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/pages/Dashboard.jsx)
+- **Fix**: Replace `mockChartData` with the state-driven `chartData`.
+- **New Section**: Add a "Recent Activity" table below the chart.
+- **Layout**: Adjust CSS to accommodate the new table alongside the chart or below it.
+
+### [Frontend] Administrative Header
+
+#### [MODIFY] [Header.jsx](file:///c:/Users/Mohammed/.gemini/antigravity/ics-frontend/src/components/Header.jsx)
+- **Notifications**: Add a dropdown menu to the `Bell` icon.
+- **Data Hook**: Fetch the 5 most recent "Flagged" crossings and display them as security alerts.
+
+## Open Questions
+
+- Should the "Recent Activity" table show all crossings or just "Cleared" ones to reduce noise?
+- Should the "Bell" icon flash or show a badge count when new "Flagged" entries are detected?
+
+## Verification Plan
+
+### Automated Tests
+- Browser subagent will log in and verify the Dashboard chart is using real data buckets.
+- Browser subagent will verify the "Recent Activity" table matches the latest records in the History page.
+- Browser subagent will trigger a "Flagged" crossing and verify it appears in the Header notifications.
+
+### Manual Verification
+- Visual check of the new Dashboard layout on different screen sizes.
+- Verify the "Security Alert" notification styling and timestamps.
