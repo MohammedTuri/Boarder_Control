@@ -1,0 +1,10 @@
+.settings-container { display: flex; flex-direction: column; gap: 24px; }
+.settings-grid { display: grid; grid-template-columns: 1fr; gap: 24px; max-width: 600px; }
+.settings-card { padding: 32px; display: flex; flex-direction: column; gap: 24px; border-top: 2px solid var(--accent-emerald); }
+.card-header { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--glass-border); padding-bottom: 16px; }
+.card-header h2 { font-size: 1.1rem; text-transform: uppercase; margin: 0; color: var(--text-main); letter-spacing: 0.1em; }
+.header-icon { color: var(--accent-emerald); filter: drop-shadow(0 0 6px var(--glow-emerald)); }
+.settings-form { display: flex; flex-direction: column; gap: 20px; }
+.alert-text { font-size: 0.875rem; margin: 0; display: flex; align-items: center; gap: 8px; }
+.alert-text.danger { color: var(--accent-danger); }
+.text-emerald { color: var(--accent-emerald); }

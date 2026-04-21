@@ -1,0 +1,44 @@
+name: ICS Mission CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install Frontend Dependencies
+      run: |
+        cd ics-frontend
+        npm install
+        
+    - name: Lint Frontend
+      run: |
+        cd ics-frontend
+        npm run lint
+        
+    - name: Build Frontend
+      run: |
+        cd ics-frontend
+        npm run build
+        
+    - name: Install Backend Dependencies
+      run: |
+        cd ics-backend
+        npm install
+        
+    - name: Backend Integrity Check
+      run: |
+        cd ics-backend
+        node --check server.js

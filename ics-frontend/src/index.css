@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* ICS Brand Colors derived from Logo */
+  --ics-blue: #1c519d;
+  --ics-dark-blue: #0f2c57;
+  --ics-green: #009640;
+  --ics-yellow: #fcd116;
+  --ics-red: #ef4444; /* Standardized red for web */
+
+  /* Surface & Background */
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(28, 81, 157, 0.1);
+  
+  /* Text */
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  
+  /* Utilities */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-brand: 0 10px 25px -5px rgba(28, 81, 157, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: 
+    radial-gradient(circle at 100% 0%, rgba(28, 81, 157, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(0, 150, 64, 0.05) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(28, 81, 157, 0.2);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ics-blue);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--ics-dark-blue);
+  letter-spacing: -0.02em;
+}
+
+/* Buttons */
+.public-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
+  gap: 0.5rem;
+}
+
+.public-btn.primary {
+  background-color: var(--ics-blue);
+  color: var(--text-inverse);
+  box-shadow: 0 4px 12px rgba(28, 81, 157, 0.3);
+}
+
+.public-btn.primary:hover {
+  background-color: var(--ics-dark-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(28, 81, 157, 0.4);
+}
+
+.public-btn.outline {
+  background-color: transparent;
+  color: var(--ics-blue);
+  border: 2px solid var(--ics-blue);
+}
+
+.public-btn.outline:hover {
+  background-color: var(--ics-blue);
+  color: var(--text-inverse);
+  transform: translateY(-2px);
+}
+
+.public-btn.outline.light {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  color: white;
+}
+
+.public-btn.outline.light:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+a {
+  color: var(--ics-blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--ics-dark-blue);
+}
+
+/* Cards & Inputs */
+.input-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: #ffffff;
+}
+
+.input-control:focus {
+  outline: none;
+  border-color: var(--ics-blue);
+  box-shadow: 0 0 0 3px rgba(28, 81, 157, 0.1);
+}
+
+.input-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #334155;
+  font-size: 0.9rem;
+}

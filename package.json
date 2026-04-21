@@ -1,0 +1,11 @@
+{
+  "name": "ics-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "cd ics-backend && npm start",
+    "db:seed": "cd ics-backend && npm run db:seed",
+    "install-backend": "cd ics-backend && npm install",
+    "build": "cd ics-backend && npm install"
+  }
+}

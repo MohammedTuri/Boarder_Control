@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd ics-frontend && npm install && npm run build",
+  "outputDirectory": "ics-frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
