@@ -23,50 +23,55 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// PostgreSQL Connection - Industrialized for Cloud deployment
-const pool = process.env.DATABASE_URL 
-  ? new Pool({
+// PostgreSQL Connection - Hardened for Render Networking
+const poolOptions = process.env.DATABASE_URL 
+  ? {
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false }
-    })
-  : new Pool({
+      ssl: { rejectUnauthorized: false },
+      connectionTimeoutMillis: 10000, // 10s timeout
+      idleTimeoutMillis: 30000,
+      max: 20
+    }
+  : {
       user: process.env.DB_USER || 'postgres',
       host: process.env.DB_HOST || 'localhost',
       database: process.env.DB_NAME || 'ics_db',
       password: process.env.DB_PASSWORD || 'root',
       port: process.env.DB_PORT || 5433
-    });
+    };
 
-// Auto-initialize Audit & Notification Tables
+const pool = new Pool(poolOptions);
+
+// Explicitly handle pool errors to prevent process crashes
+pool.on('error', (err) => {
+  console.error('ICS MISSION CONTROL: Unexpected database pool error', err);
+});
+
+// Auto-initialize Audit & Notification Tables and Core Schema
 const initDb = async () => {
   try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS audit_logs (
-        id SERIAL PRIMARY KEY,
-        agent_id VARCHAR(50),
-        action VARCHAR(100) NOT NULL,
-        details TEXT,
-        ip_address VARCHAR(50),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-      
-      CREATE TABLE IF NOT EXISTS notifications (
-        id SERIAL PRIMARY KEY,
-        application_id INT,
-        type VARCHAR(50),
-        recipient VARCHAR(100),
-        status VARCHAR(20) DEFAULT 'Delivered',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `);
-    console.log('Forensic systems initialized.');
+    // 1. First, always ensure schema exists
+    const schemaPath = path.join(__dirname, 'schema.sql');
+    if (fs.existsSync(schemaPath)) {
+      const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+      await pool.query(schemaSql);
+      console.log('Forensic systems initialized. Database schema verified.');
+    }
 
-    // Migration Guard: Check if users table exists (seeded by seed.js)
-    const checkUsers = await pool.query("SELECT to_regclass('public.users')");
-    if (!checkUsers.rows[0].to_regclass) {
-      console.error('CRITICAL ERROR: The "users" table is missing. Please run "npm run db:seed" to initialize the database.');
+    // 2. Migration Guard: Check if users table is populated
+    const checkUsers = await pool.query("SELECT COUNT(*) FROM users");
+    if (parseInt(checkUsers.rows[0].count) === 0) {
+      console.warn('WARNING: The "users" table is empty. You must seed the database.');
+      console.warn('Attempting to automatically run seed process...');
+      try {
+         const { execSync } = await import('child_process');
+         execSync('npm run db:seed', { stdio: 'inherit', env: process.env });
+         console.log('Auto-seed completed.');
+      } catch (seedErr) {
+         console.error('Auto-seed failed:', seedErr.message);
+      }
     } else {
-      console.log('Database integrity verified: Users table found.');
+      console.log('Database integrity verified: Users table populated.');
     }
   } catch (err) {
     console.error('ICS MISSION CONTROL: Database initialization failed!', err);
@@ -1129,6 +1134,6 @@ app.get('/api/reports/biometric', authenticateToken, async (req, res) => {
   }
 });
 
-app.listen(port, async () => {
-  console.log(`Command Center API running on port ${port}`);
+app.listen(port, '0.0.0.0', async () => {
+  console.log(`Command Center API running on port ${port} over 0.0.0.0`);
 });
