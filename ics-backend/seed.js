@@ -2,6 +2,9 @@ import pkg from 'pg';
 const { Pool } = pkg;
 import bcrypt from 'bcrypt';
 import 'dotenv/config';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const pool = process.env.DATABASE_URL
   ? new Pool({
@@ -21,61 +24,19 @@ async function runSeed() {
     console.log('Starting seed process...');
 
     // 1. Create Schema if it doesn't exist
-    console.log('Seed: Initializing schema...');
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        agent_id VARCHAR(50) UNIQUE NOT NULL,
-        name VARCHAR(100) NOT NULL,
-        role VARCHAR(50) NOT NULL,
-        password_hash TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-
-      CREATE TABLE IF NOT EXISTS applications (
-        id SERIAL PRIMARY KEY,
-        reference_number VARCHAR(50) UNIQUE NOT NULL,
-        first_name VARCHAR(100) NOT NULL,
-        last_name VARCHAR(100) NOT NULL,
-        passport_number VARCHAR(50) NOT NULL,
-        nationality VARCHAR(100) NOT NULL,
-        dob DATE NOT NULL,
-        purpose VARCHAR(100),
-        travel_date DATE,
-        status VARCHAR(50) DEFAULT 'Pending',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-
-      CREATE TABLE IF NOT EXISTS crossings (
-        id SERIAL PRIMARY KEY,
-        passport VARCHAR(50) NOT NULL,
-        full_name VARCHAR(200) NOT NULL,
-        nationality VARCHAR(100) NOT NULL,
-        dob DATE NOT NULL,
-        expiry DATE,
-        type VARCHAR(20) NOT NULL,
-        point_of_entry VARCHAR(100),
-        status VARCHAR(50) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-
-      CREATE TABLE IF NOT EXISTS watchlist (
-        id SERIAL PRIMARY KEY,
-        passport VARCHAR(50) UNIQUE NOT NULL,
-        full_name VARCHAR(200) NOT NULL,
-        reason TEXT,
-        risk_level VARCHAR(50),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-
-      CREATE TABLE IF NOT EXISTS biometric_archive (
-        id SERIAL PRIMARY KEY,
-        passport VARCHAR(50) UNIQUE NOT NULL,
-        signature_hash TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `);
-    console.log('Seed: Schema initialized.');
+    console.log('Seed: Initializing schema from schema.sql...');
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const schemaPath = path.join(__dirname, 'schema.sql');
+    
+    if (fs.existsSync(schemaPath)) {
+      const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+      await pool.query(schemaSql);
+      console.log('Seed: Schema initialized from file.');
+    } else {
+      console.error('CRITICAL ERROR: schema.sql not found! Cannot initialize database.');
+      process.exit(1);
+    }
 
     // 2. Clean the tables
     await pool.query('TRUNCATE users, applications, crossings, watchlist RESTART IDENTITY CASCADE');
