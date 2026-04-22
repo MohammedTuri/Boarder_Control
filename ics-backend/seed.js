@@ -1,3 +1,6 @@
+import dns from 'node:dns';
+dns.setDefaultResultOrder('ipv4first');
+
 import pkg from 'pg';
 const { Pool } = pkg;
 import bcrypt from 'bcrypt';
