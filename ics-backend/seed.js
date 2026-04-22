@@ -1,44 +1,22 @@
-import { resolve4 } from 'node:dns/promises';
 import pkg from 'pg';
 const { Pool } = pkg;
 import bcrypt from 'bcrypt';
+import 'dotenv/config';
 
-// Force IPv4 by resolving the database hostname before connecting
-async function createPool() {
-  if (!process.env.DATABASE_URL) {
-    return new Pool({
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }
+    })
+  : new Pool({
       user: process.env.DB_USER || 'postgres',
       host: process.env.DB_HOST || 'localhost',
       database: process.env.DB_NAME || 'ics_db',
       password: process.env.DB_PASSWORD || 'root',
       port: parseInt(process.env.DB_PORT) || 5433
     });
-  }
-
-  let connectionString = process.env.DATABASE_URL;
-  try {
-    const url = new URL(process.env.DATABASE_URL);
-    const addresses = await resolve4(url.hostname);
-    if (addresses && addresses.length > 0) {
-      url.hostname = addresses[0];
-      connectionString = url.toString();
-      console.log(`ICS: Resolved DB host to IPv4: ${addresses[0]}`);
-    }
-  } catch (err) {
-    console.warn('ICS: Could not resolve IPv4, proceeding with original URL:', err.message);
-  }
-
-  return new Pool({
-    connectionString,
-    ssl: { rejectUnauthorized: false },
-    connectionTimeoutMillis: 15000,
-    max: 5
-  });
-}
 
 async function runSeed() {
-  const pool = await createPool();
-
   try {
     console.log('Starting seed process...');
 
@@ -56,7 +34,6 @@ async function runSeed() {
         ('SUP-142', 'Dawit Mekonnen', 'Supervisor', $1),
         ('AGT-882', 'Kalkidan Girma', 'Officer', $1)
     `, [defaultPassword]);
-
     console.log('Seed: Users created.');
 
     // 2. Create some applications
@@ -66,7 +43,6 @@ async function runSeed() {
         ('APP-81203X', 'Ahmed', 'Ousmane', 'P8812932X', 'Senegal', '1985-04-12', 'Tourism', '2026-05-01', 'Approved'),
         ('APP-10293Y', 'Sarah', 'Jenkins', 'GB1293812', 'United Kingdom', '1990-11-20', 'Business', '2026-04-15', 'Pending')
     `);
-
     console.log('Seed: Applications created.');
 
     // 3. Create initial watchlist
@@ -76,7 +52,6 @@ async function runSeed() {
         ('EP1234567', 'Marcus Vane', 'Suspected of illicit trade activities', 'High'),
         ('US9876543', 'Elena Rodriguez', 'Wanted for questioning by federal authorities', 'Critical')
     `);
-
     console.log('Seed: Watchlist entries created.');
 
     // 4. Create some crossings with point_of_entry
@@ -92,22 +67,20 @@ async function runSeed() {
         ('CN6677889', 'Li Wei', 'China', '1988-12-05', '2029-12-05', 'Entry', 'Addis Ababa (Bole)', 'Cleared', NOW() - INTERVAL '3 hours'),
         ('IN3344556', 'Priya Sharma', 'India', '1995-02-28', '2032-02-28', 'Entry', 'Dire Dawa (Aba Tenna)', 'Cleared', NOW() - INTERVAL '6 hours')
     `);
-
     console.log('Seed: Crossings records with points of entry created.');
 
     // 5. Pre-seed Biometric Archive for conflict testing
     await pool.query(`
       INSERT INTO biometric_archive (passport, signature_hash)
-      VALUES 
-        ('ETH-ORIGINAL-001', 'SIG-SHARED-ETH-IND-001')
+      VALUES ('ETH-ORIGINAL-001', 'SIG-SHARED-ETH-IND-001')
       ON CONFLICT DO NOTHING
     `);
-    console.log('Seed: Biometric archive pre-seeded for conflict testing.');
+    console.log('Seed: Biometric archive pre-seeded.');
 
     console.log('Seed completed successfully!');
     process.exit(0);
   } catch (error) {
-    console.error('Seed error:', error);
+    console.error('Seed error:', error.message);
     process.exit(1);
   } finally {
     await pool.end();

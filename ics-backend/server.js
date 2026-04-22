@@ -24,43 +24,26 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// PostgreSQL Connection - Force IPv4 resolution to avoid ENETUNREACH on Render
-let resolvedDBUrl = process.env.DATABASE_URL;
-if (resolvedDBUrl) {
-  try {
-    const dbUrl = new URL(resolvedDBUrl);
-    const addresses = await resolve4(dbUrl.hostname);
-    if (addresses && addresses.length > 0) {
-      dbUrl.hostname = addresses[0];
-      resolvedDBUrl = dbUrl.toString();
-      console.log(`ICS: DB host resolved to IPv4: ${addresses[0]}`);
-    }
-  } catch (e) {
-    console.warn('ICS: IPv4 resolution failed, using original URL:', e.message);
-  }
-}
-
-const poolOptions = resolvedDBUrl
-  ? {
-      connectionString: resolvedDBUrl,
+// PostgreSQL Connection Pool
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
       connectionTimeoutMillis: 10000,
       idleTimeoutMillis: 30000,
       max: 20
-    }
-  : {
+    })
+  : new Pool({
       user: process.env.DB_USER || 'postgres',
       host: process.env.DB_HOST || 'localhost',
       database: process.env.DB_NAME || 'ics_db',
       password: process.env.DB_PASSWORD || 'root',
       port: process.env.DB_PORT || 5433
-    };
+    });
 
-const pool = new Pool(poolOptions);
-
-// Explicitly handle pool errors to prevent process crashes
+// Handle pool errors to prevent crashes
 pool.on('error', (err) => {
-  console.error('ICS MISSION CONTROL: Unexpected database pool error', err);
+  console.error('ICS: Database pool error:', err.message);
 });
 
 // Auto-initialize Audit & Notification Tables and Core Schema
