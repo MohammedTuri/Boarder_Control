@@ -1,29 +1,44 @@
-import dns from 'node:dns';
-dns.setDefaultResultOrder('ipv4first');
-
+import { resolve4 } from 'node:dns/promises';
 import pkg from 'pg';
 const { Pool } = pkg;
 import bcrypt from 'bcrypt';
 
-const poolOptions = process.env.DATABASE_URL 
-  ? {
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-      connectionTimeoutMillis: 10000, // 10s timeout
-      idleTimeoutMillis: 30000,
-      max: 5
-    }
-  : {
+// Force IPv4 by resolving the database hostname before connecting
+async function createPool() {
+  if (!process.env.DATABASE_URL) {
+    return new Pool({
       user: process.env.DB_USER || 'postgres',
       host: process.env.DB_HOST || 'localhost',
       database: process.env.DB_NAME || 'ics_db',
       password: process.env.DB_PASSWORD || 'root',
-      port: process.env.DB_PORT || 5433
-    };
+      port: parseInt(process.env.DB_PORT) || 5433
+    });
+  }
 
-const pool = new Pool(poolOptions);
+  let connectionString = process.env.DATABASE_URL;
+  try {
+    const url = new URL(process.env.DATABASE_URL);
+    const addresses = await resolve4(url.hostname);
+    if (addresses && addresses.length > 0) {
+      url.hostname = addresses[0];
+      connectionString = url.toString();
+      console.log(`ICS: Resolved DB host to IPv4: ${addresses[0]}`);
+    }
+  } catch (err) {
+    console.warn('ICS: Could not resolve IPv4, proceeding with original URL:', err.message);
+  }
+
+  return new Pool({
+    connectionString,
+    ssl: { rejectUnauthorized: false },
+    connectionTimeoutMillis: 15000,
+    max: 5
+  });
+}
 
 async function runSeed() {
+  const pool = await createPool();
+
   try {
     console.log('Starting seed process...');
 
@@ -94,6 +109,8 @@ async function runSeed() {
   } catch (error) {
     console.error('Seed error:', error);
     process.exit(1);
+  } finally {
+    await pool.end();
   }
 }
 

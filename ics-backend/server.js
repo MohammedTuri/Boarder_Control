@@ -1,6 +1,4 @@
-import dns from 'node:dns';
-dns.setDefaultResultOrder('ipv4first');
-
+import { resolve4 } from 'node:dns/promises';
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
@@ -26,12 +24,27 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// PostgreSQL Connection - Hardened for Render Networking
-const poolOptions = process.env.DATABASE_URL 
+// PostgreSQL Connection - Force IPv4 resolution to avoid ENETUNREACH on Render
+let resolvedDBUrl = process.env.DATABASE_URL;
+if (resolvedDBUrl) {
+  try {
+    const dbUrl = new URL(resolvedDBUrl);
+    const addresses = await resolve4(dbUrl.hostname);
+    if (addresses && addresses.length > 0) {
+      dbUrl.hostname = addresses[0];
+      resolvedDBUrl = dbUrl.toString();
+      console.log(`ICS: DB host resolved to IPv4: ${addresses[0]}`);
+    }
+  } catch (e) {
+    console.warn('ICS: IPv4 resolution failed, using original URL:', e.message);
+  }
+}
+
+const poolOptions = resolvedDBUrl
   ? {
-      connectionString: process.env.DATABASE_URL,
+      connectionString: resolvedDBUrl,
       ssl: { rejectUnauthorized: false },
-      connectionTimeoutMillis: 10000, // 10s timeout
+      connectionTimeoutMillis: 10000,
       idleTimeoutMillis: 30000,
       max: 20
     }
