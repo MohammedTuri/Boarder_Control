@@ -1,6 +1,8 @@
 -- ICS Sovereign Data Schema (Production Ready)
 -- Use this script to initialize your cloud database tables.
 
+DROP TABLE IF EXISTS users, applications, crossings, watchlist, biometric_archive, notifications, audit_logs CASCADE;
+
 
 CREATE TABLE IF NOT EXISTS crossings (
     id SERIAL PRIMARY KEY,
