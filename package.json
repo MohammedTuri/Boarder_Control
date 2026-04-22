@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cd ics-backend && npm start",
-    "db:seed": "cd ics-backend && npm run db:seed",
-    "install-backend": "cd ics-backend && npm install",
-    "build": "cd ics-backend && npm install"
+    "start": "npm --prefix ./ics-backend start",
+    "db:seed": "npm --prefix ./ics-backend run db:seed",
+    "build": "npm --prefix ./ics-backend install"
   }
 }

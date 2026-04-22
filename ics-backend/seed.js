@@ -2,16 +2,23 @@ import pkg from 'pg';
 const { Pool } = pkg;
 import bcrypt from 'bcrypt';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'ics_db',
-  password: process.env.DB_PASSWORD || 'root',
-  port: process.env.DB_PORT || 5433,
-  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
-});
+const poolOptions = process.env.DATABASE_URL 
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      connectionTimeoutMillis: 10000, // 10s timeout
+      idleTimeoutMillis: 30000,
+      max: 5
+    }
+  : {
+      user: process.env.DB_USER || 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      database: process.env.DB_NAME || 'ics_db',
+      password: process.env.DB_PASSWORD || 'root',
+      port: process.env.DB_PORT || 5433
+    };
 
+const pool = new Pool(poolOptions);
 
 async function runSeed() {
   try {
