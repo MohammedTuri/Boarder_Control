@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wude | Find Your Beloved</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav style="position: absolute; top: 0; width: 100%; padding: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 100;">
+        <div style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--rose-gold);">Wude</div>
+        <div>
+            <a href="#" class="btn" style="color: var(--deep-charcoal); padding: 10px 20px;">Login</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 id="hero-title">Find Your Beloved</h1>
+            <p>The world's most elegant platform for serious dating and lifelong unions. Connecting souls across borders and cultures.</p>
+            
+            <div id="main-action">
+                <button onclick="startOnboarding()" class="btn btn-primary">Start Your Journey</button>
+            </div>
+
+            <div id="onboarding" class="glass-card" style="display: none; margin-top: 40px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                <h3>Tell Us About You</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 20px;">We'll find the perfect match for your soul.</p>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">I am a...</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <button class="btn" style="background: white; border: 1px solid #ddd; color: var(--deep-charcoal); font-size: 0.9rem;" onclick="selectGender(this, 'woman')">Woman</button>
+                        <button class="btn" style="background: white; border: 1px solid #ddd; color: var(--deep-charcoal); font-size: 0.9rem;" onclick="selectGender(this, 'man')">Man</button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Looking for a...</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <button class="btn" style="background: white; border: 1px solid #ddd; color: var(--deep-charcoal); font-size: 0.9rem;" onclick="selectLooking(this, 'man')">Man</button>
+                        <button class="btn" style="background: white; border: 1px solid #ddd; color: var(--deep-charcoal); font-size: 0.9rem;" onclick="selectLooking(this, 'woman')">Woman</button>
+                    </div>
+                </div>
+
+                <button onclick="showStep2()" class="btn btn-primary" style="width: 100%;">Find Matches</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="feed" style="display: none; padding-top: 20px;">
+        <div class="container feed-container">
+            <h2 style="margin-bottom: 25px;">Discover Your Beloved</h2>
+            
+            <!-- Ad Slot (Money Hook) -->
+            <div class="ad-slot">Sponsored Advertisement</div>
+
+            <!-- Profile 1 -->
+            <div class="profile-card">
+                <div class="premium-lock">✨ PREMIUM</div>
+                <img src="https://images.unsplash.com/photo-1523824921871-d6f1a31951bc?q=80&w=1000&auto=format&fit=crop" class="profile-img" alt="Selam">
+                <div class="profile-info">
+                    <div class="profile-name">Selam, 24</div>
+                    <div class="profile-meta">Addis Ababa • Looking for Marriage</div>
+                </div>
+            </div>
+
+            <!-- Profile 2 -->
+            <div class="profile-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" class="profile-img" alt="Elias">
+                <div class="profile-info">
+                    <div class="profile-name">Elias, 28</div>
+                    <div class="profile-meta">Gondar • Looking for Soulmate</div>
+                </div>
+            </div>
+
+            <!-- Ad Slot (Money Hook) -->
+            <div class="ad-slot">Sponsored Advertisement</div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation (App feel) -->
+    <nav id="bottom-nav" class="bottom-nav" style="display: none;">
+        <div class="nav-item active">❤️</div>
+        <div class="nav-item">💬</div>
+        <div class="nav-item">💎</div>
+        <div class="nav-item">👤</div>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
