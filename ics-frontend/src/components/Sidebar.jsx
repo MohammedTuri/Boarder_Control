@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Shield, Home, Users, FileText, Settings as SettingsIcon, UserCog, Search, AlertOctagon, Activity, ChevronDown, CheckCircle, Clock, XCircle, BarChart, ClipboardList } from 'lucide-react';
+import { Shield, Home, Users, FileText, Settings as SettingsIcon, UserCog, Search, AlertOctagon, Activity, ChevronDown, CheckCircle, Clock, XCircle, BarChart, ClipboardList, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import './Sidebar.css';
 
@@ -12,7 +12,7 @@ const REPORT_ITEMS = [
   { id: 'visa_rejected', label: 'Rejected Visas', icon: XCircle },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const { user, authFetch } = useAuth();
   const [reportsOpen, setReportsOpen] = useState(false);
   const [pendingCount, setPendingCount] = useState(0);
@@ -38,24 +38,28 @@ const Sidebar = () => {
 
   const handleReportClick = (reportId) => {
     navigate(`/admin/history?report=${reportId}`);
+    if (window.innerWidth <= 768) onClose();
   };
   
   return (
-    <aside className="glass-panel sidebar">
+    <aside className={`glass-panel sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
         <img src="/ics-logo.png" alt="ICS Logo" style={{ height: '45px', width: 'auto', marginBottom: '8px' }} />
+        <button className="sidebar-close" onClick={onClose} aria-label="Close Menu">
+          <X size={24} />
+        </button>
       </div>
       <nav className="sidebar-nav">
-        <NavLink to="/admin" end className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/admin" end className={({isActive}) => isActive ? "nav-item active" : "nav-item"} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
           <Home size={20} />
           <span>Dashboard</span>
         </NavLink>
-        <NavLink to="/admin/processing" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/admin/processing" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
           <Users size={20} />
           <span>Processing</span>
         </NavLink>
         {['Administrator', 'Supervisor'].includes(user?.role) && (
-          <NavLink to="/admin/applications" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} style={{position: 'relative'}}>
+          <NavLink to="/admin/applications" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} style={{position: 'relative'}} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
             <ClipboardList size={20} />
             <span>Visa Applications</span>
             {pendingCount > 0 && (
@@ -77,7 +81,7 @@ const Sidebar = () => {
             )}
           </NavLink>
         )}
-        <NavLink to="/admin/search" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/admin/search" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
           <Search size={20} />
           <span>Database Search</span>
         </NavLink>
@@ -112,7 +116,7 @@ const Sidebar = () => {
                 </div>
               )}
             </div>
-            <NavLink to="/admin/watchlist" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+            <NavLink to="/admin/watchlist" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
               <AlertOctagon size={20} />
               <span>Watchlist</span>
             </NavLink>
@@ -121,11 +125,11 @@ const Sidebar = () => {
         
         {user?.role === 'Administrator' && (
           <>
-            <NavLink to="/admin/users" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+            <NavLink to="/admin/users" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
               <UserCog size={20} />
               <span>Personnel Audit</span>
             </NavLink>
-            <NavLink to="/admin/audit" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+            <NavLink to="/admin/audit" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
               <Activity size={20} />
               <span>System Integrity</span>
             </NavLink>
@@ -157,7 +161,7 @@ const Sidebar = () => {
 
       {['Administrator', 'Supervisor'].includes(user?.role) && (
         <div className="sidebar-footer">
-          <NavLink to="/admin/settings" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+          <NavLink to="/admin/settings" className={({isActive}) => isActive ? "nav-item active" : "nav-item"} onClick={() => { if (window.innerWidth <= 768) onClose(); }}>
             <SettingsIcon size={20} />
             <span>Settings</span>
           </NavLink>

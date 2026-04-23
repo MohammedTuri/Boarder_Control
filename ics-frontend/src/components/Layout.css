@@ -20,3 +20,35 @@
   overflow-y: auto;
   border-radius: 12px;
 }
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1500;
+  animation: fadeIn 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .main-content {
+    gap: 8px;
+  }
+
+  .page-content {
+    border-radius: 8px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

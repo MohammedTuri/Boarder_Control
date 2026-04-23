@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
-import { Bell, User, LogOut, AlertTriangle, Clock, MapPin } from 'lucide-react';
+import { Bell, User, LogOut, AlertTriangle, Clock, MapPin, Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useSettings } from '../context/SettingsContext';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ onMenuToggle }) => {
   const navigate = useNavigate();
   const { user, logout, authFetch } = useAuth();
   const { enableNotifications } = useSettings();
@@ -43,6 +43,9 @@ const Header = () => {
   return (
     <header className="glass-panel top-header">
       <div className="header-left">
+        <button className="menu-toggle" onClick={onMenuToggle} aria-label="Toggle Menu">
+          <Menu size={24} />
+        </button>
         <div className="status-indicator">
           <span className="dot pulse"></span>
           <span className="status-text">SYSTEM SECURE</span>

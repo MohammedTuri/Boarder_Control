@@ -7,6 +7,7 @@ import './Layout.css';
 
 const Layout = () => {
   const { user } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -14,13 +15,14 @@ const Layout = () => {
 
   return (
     <div className="app-container">
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
       <div className="main-content">
-        <Header />
+        <Header onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
         <main className="page-content">
           <Outlet />
         </main>
       </div>
+      {isSidebarOpen && <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)}></div>}
     </div>
   );
 };
