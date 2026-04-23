@@ -26,9 +26,13 @@ const PublicHeader = () => {
         </nav>
         
         <div className="public-actions">
-          <Link to="/apply" className="public-btn primary">NEW APPLICATION</Link>
-          <Link to="/login" className="public-btn outline" style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-             <UserCircle size={18} /> AGENT ACCESS
+          <Link to="/apply" className="public-btn primary">
+            <span className="btn-text">NEW APPLICATION</span>
+            <span className="btn-text-mobile">APPLY</span>
+          </Link>
+          <Link to="/login" className="public-btn outline">
+             <UserCircle size={18} /> 
+             <span className="btn-text">AGENT ACCESS</span>
           </Link>
         </div>
       </div>

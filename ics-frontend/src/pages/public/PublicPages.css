@@ -220,9 +220,16 @@
 }
 
 @media (max-width: 768px) {
-  .hero-content h1 { font-size: 2.75rem; }
-  .hero-actions { flex-direction: column; }
+  .hero-section { height: auto; min-height: 500px; margin-bottom: 40px; }
+  .hero-overlay { padding: 40px 20px; }
+  .hero-content h1 { font-size: 2.2rem; }
+  .hero-content p { font-size: 1.1rem; margin-bottom: 32px; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .public-btn { width: 100%; }
+  .hero-content .badge { font-size: 0.7rem; padding: 4px 12px; }
   .form-row { grid-template-columns: 1fr; }
   .public-form-container { padding: 40px 24px; margin: -30px 16px 40px; }
   .hero-section, .page-header { border-radius: 0 0 20px 20px; }
+  .section-container { padding: 0 20px; }
+  .journey-section { padding: 40px 20px !important; }
 }

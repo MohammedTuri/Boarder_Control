@@ -101,9 +101,26 @@
   margin: 0 auto;
 }
 
+.btn-text-mobile { display: none; }
+
 @media (max-width: 1024px) {
   .public-nav-links { display: none; }
   .footer-content { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .public-header { height: 70px; }
+  .public-nav-container { padding: 0 16px; }
+  .brand-logo-img { height: 40px !important; }
+  .public-actions { gap: 8px; }
+  .public-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+  .btn-text { display: none; }
+  .btn-text-mobile { display: inline; }
+  .public-actions .public-btn.outline { padding: 8px; }
+  .public-actions .public-btn.outline span { display: none; }
 }
 
 @media (max-width: 640px) {
