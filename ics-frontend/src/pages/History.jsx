@@ -393,7 +393,7 @@ const History = () => {
         <div className="empty-state" style={{padding: '80px', textAlign: 'center'}}>
           <Filter size={48} className="muted" style={{marginBottom: '20px'}} />
           <h3>Awaiting Configuration</h3>
-          <p className="muted">Set the date range in the sidebar and click Generate to retrieve data.</p>
+          <p className="muted">Configure your report parameters above and click <strong>Generate Report</strong> to retrieve intelligence data.</p>
         </div>
       );
     }

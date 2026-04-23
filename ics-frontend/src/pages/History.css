@@ -21,6 +21,15 @@
 @media (max-width: 1200px) {
   .history-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .sidebar-history {
+    order: -1;
+  }
+
+  .main-history-table {
+    min-height: auto;
   }
 }
 
